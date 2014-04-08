@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/Users/Tom/Dropbox/Code%20and%20Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/values-v19/values.xml -->
+    <eat-comment />
+
+    <color name="elv_btn_pressed">#33FFFFFF</color>
+
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/cyan" android:state_pressed="true" />
+    <item android:drawable="@color/normal_color" />
+</selector><!-- From: file:/Users/Tom/Dropbox/Code%20and%20Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable/date_picker_click.xml -->

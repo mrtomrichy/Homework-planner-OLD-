@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" >
+
+    <dataSet config="0.3.0" >
+        <source path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res" >
+            <file
+                name="elv_popup_hide"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/anim/elv_popup_hide.xml"
+                qualifiers=""
+                type="anim" />
+            <file
+                name="elv_popup_show"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/anim/elv_popup_show.xml"
+                qualifiers=""
+                type="anim" />
+            <file
+                name="elv_popup_bg"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable/elv_popup_bg.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="elv_undo_btn_bg"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable/elv_undo_btn_bg.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="elv_undo_btn_bg_focused"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable/elv_undo_btn_bg_focused.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="elv_undo_btn_bg_pressed"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable/elv_undo_btn_bg_pressed.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="elv_ic_action_undo"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-hdpi/elv_ic_action_undo.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="elv_toast_frame"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-hdpi/elv_toast_frame.9.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="elv_ic_action_undo"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-ldpi/elv_ic_action_undo.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="elv_toast_frame"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-ldpi/elv_toast_frame.9.png"
+                qualifiers="ldpi"
+                type="drawable" />
+            <file
+                name="elv_ic_action_undo"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-mdpi/elv_ic_action_undo.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="elv_toast_frame"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-mdpi/elv_toast_frame.9.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="elv_ic_action_undo"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-xhdpi/elv_ic_action_undo.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="elv_toast_frame"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-xhdpi/elv_toast_frame.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="elv_ic_action_undo"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-xxhdpi/elv_ic_action_undo.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="elv_toast_frame"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/drawable-xxhdpi/elv_toast_frame.9.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="elv_undo_popup"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/layout/elv_undo_popup.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="elv_undo_popup"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/layout-v19/elv_undo_popup.xml"
+                qualifiers="v19"
+                type="layout" />
+            <file
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/values/values.xml"
+                qualifiers="" >
+                <color name="elv_popup_bg_color" >#EE666666
+                </color>
+
+                <string name="elv_undo_all" >Undo All
+                </string>
+
+                <style name="elv_fade_animation" >
+                    <item name="@android:windowEnterAnimation">
+@anim/elv_popup_show
+                    </item>
+                    <item name="@android:windowExitAnimation">
+@anim/elv_popup_hide
+                    </item>
+                </style>
+
+                <color name="elv_btn_pressed" >#ff33b5e5
+                </color>
+                <color name="elv_btn_focused" >#ff0099cc
+                </color>
+
+                <string name="elv_item_deleted" >Item deleted
+                </string>
+
+                <dimen name="elv_touch_slop" >32dp
+                </dimen>
+
+                <string name="elv_undo" >Undo
+                </string>
+
+                <color name="elv_btn_normal" >#00000000
+                </color>
+
+                <string name="elv_n_items_deleted" >%1$s items deleted
+                </string>
+
+                <color name="elv_separator_color" >#BBBBBB
+                </color>
+                <color name="elv_popup_text_color" >#FFFFFF
+                </color>
+            </file>
+            <file
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/exploded-aar/de.timroes.android/EnhancedListView/0.3.0/res/values-v19/values.xml"
+                qualifiers="v19" >
+                <color name="elv_btn_pressed" >#33FFFFFF
+                </color>
+            </file>
+        </source>
+    </dataSet>
+    <dataSet config="main" >
+        <source path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res" >
+            <file
+                name="anim_left"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/anim/anim_left.xml"
+                qualifiers=""
+                type="anim" />
+            <file
+                name="anim_left2"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/anim/anim_left2.xml"
+                qualifiers=""
+                type="anim" />
+            <file
+                name="anim_right"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/anim/anim_right.xml"
+                qualifiers=""
+                type="anim" />
+            <file
+                name="anim_right2"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/anim/anim_right2.xml"
+                qualifiers=""
+                type="anim" />
+            <file
+                name="color_picker_swatch"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable/color_picker_swatch.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="date_picker_click"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable/date_picker_click.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="home_up"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable/home_up.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="icon"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable/icon.png"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="undobar_button"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable/undobar_button.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="home_up"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-hdpi/home_up.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_edit"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-hdpi/ic_action_edit.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_new"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-hdpi/ic_action_new.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_action_save"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-hdpi/ic_action_save.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_colorpicker_swatch_selected"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-hdpi/ic_colorpicker_swatch_selected.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="icon"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-hdpi/icon.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="notification_icon"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-hdpi/notification_icon.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="home_up"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-mdpi/home_up.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_edit"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-mdpi/ic_action_edit.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_new"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-mdpi/ic_action_new.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_action_save"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-mdpi/ic_action_save.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="ic_colorpicker_swatch_selected"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-mdpi/ic_colorpicker_swatch_selected.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="icon"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-mdpi/icon.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="notification_icon"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-mdpi/notification_icon.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="home_up"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/home_up.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_edit"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/ic_action_edit.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_new"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/ic_action_new.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_save"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/ic_action_save.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_colorpicker_swatch_selected"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/ic_colorpicker_swatch_selected.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="ic_undobar_undo"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/ic_undobar_undo.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="icon"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/icon.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="notification_icon"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/notification_icon.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="undobar"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/undobar.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="undobar_button_focused"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/undobar_button_focused.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="undobar_button_pressed"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/undobar_button_pressed.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="undobar_divider"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xhdpi/undobar_divider.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="home_up"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xxhdpi/home_up.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_edit"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xxhdpi/ic_action_edit.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_new"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xxhdpi/ic_action_new.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="ic_action_save"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xxhdpi/ic_action_save.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="icon"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xxhdpi/icon.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="notification_icon"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/drawable-xxhdpi/notification_icon.png"
+                qualifiers="xxhdpi"
+                type="drawable" />
+            <file
+                name="alarmlistitem"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/alarmlistitem.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="alarmpickerdialog"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/alarmpickerdialog.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="color_picker_dialog"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/color_picker_dialog.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="color_picker_swatch"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/color_picker_swatch.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="homework_input_alarms"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/homework_input_alarms.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="homework_input_main"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/homework_input_main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="homework_input_screen"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/homework_input_screen.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="information"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/information.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="list"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/list.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="list_footer"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/list_footer.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="list_fragment"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/list_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="main"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/main.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="main_drawer_item"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/main_drawer_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="main_view_hwk"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/main_view_hwk.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="viewhomework"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/viewhomework.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="list"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout-land/list.xml"
+                qualifiers="land"
+                type="layout" />
+            <file
+                name="main"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout-land/main.xml"
+                qualifiers="land"
+                type="layout" />
+            <file
+                name="list"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout-large/list.xml"
+                qualifiers="large"
+                type="layout" />
+            <file
+                name="main"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout-large/main.xml"
+                qualifiers="large"
+                type="layout" />
+            <file
+                name="list"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout-large-port/list.xml"
+                qualifiers="large-port"
+                type="layout" />
+            <file
+                name="list"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout-xlarge/list.xml"
+                qualifiers="xlarge"
+                type="layout" />
+            <file
+                name="edithomeworkmenu"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/menu/edithomeworkmenu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="joint_menu"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/menu/joint_menu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="newhomeworkmenu"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/menu/newhomeworkmenu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="optionsmenu"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/menu/optionsmenu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="viewhomeworkmenu"
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/menu/viewhomeworkmenu.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/values/colors.xml"
+                qualifiers="" >
+                <color name="grey" >#C8C8C8
+                </color>
+                <color name="normal_color" >#00FFFFFF
+                </color>
+
+                <string-array
+                    name="default_color_choice_values"
+                    translatable="false" >
+                    <item>
+#33b5e5
+                    </item>
+                    <item>
+#aa66cc
+                    </item>
+                    <item>
+#99cc00
+                    </item>
+                    <item>
+#ffbb33
+                    </item>
+                    <item>
+#ff4444
+                    </item>
+                    <item>
+#0099cc
+                    </item>
+                    <item>
+#9933cc
+                    </item>
+                    <item>
+#669900
+                    </item>
+                    <item>
+#ff8800
+                    </item>
+                    <item>
+#cc0000
+                    </item>
+                    <item>
+#FF82AB
+                    </item>
+                    <item>
+#222222
+                    </item>
+                    <item>
+#826541
+                    </item>
+                    <item>
+#cccccc
+                    </item>
+                    <item>
+#888888
+                    </item>
+                </string-array>
+
+                <color name="white" >#FFFFFF
+                </color>
+                <color name="div" >#999999
+                </color>
+                <color name="cyan" >#33B5E5
+                </color>
+            </file>
+            <file
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/values/dimens.xml"
+                qualifiers="" >
+                <dimen name="color_swatch_small" >48dip
+                </dimen>
+                <dimen name="medium_text" >18sp
+                </dimen>
+                <dimen name="view_homework_section_padding" >8sp
+                </dimen>
+                <dimen name="color_swatch_margins_large" >8dip
+                </dimen>
+                <dimen name="large_text" >22sp
+                </dimen>
+                <dimen name="small_text" >14sp
+                </dimen>
+                <dimen name="micro_text" >12sp
+                </dimen>
+                <dimen name="color_swatch_large" >64dip
+                </dimen>
+                <dimen name="color_swatch_margins_small" >4dip
+                </dimen>
+            </file>
+            <file
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/values/strings.xml"
+                qualifiers="" >
+                <string
+                    name="color_picker_default_title"
+                    msgid="1248663997452044787" >"Select a Colour"
+                </string>
+                <string name="info_me" >I am currently at the University of Manchester studying Computer Science. I work on this in my spare time, which I don\'t end up with a lot of. I will do my best to keep it as up to date as possible and fix any bugs. Just leave me a comment on the store or email me (email listed on Play Store) and I\'ll sort any issues out ASAP! Also, feel free to leave any ideas you have for my app!
+                </string>
+                <string name="info_desc" >This simple application is guaranteed to keep you and your homework organised with its simple, fast and effective reminders on when your homework is due in. When you wake up in the morning, there is no need to panic, as this planner will remind you that your homework is due!\nFuture updates will include: \'Mark As Done\', themes, and various other requested features!
+                </string>
+
+                <array name="main_drawer_options" >
+                    <item>
+Homework List
+                    </item>
+                    <item>
+Timetable
+                    </item>
+                </array>
+
+                <string name="list_footer_info" >NO HOMEWORK
+                </string>
+                <string name="app_name" >Homework Planner
+                </string>
+                <string
+                    name="color_swatch_description"
+                    msgid="2883438431173736180" >"Colour 
+<ns1:g id="COLOR_INDEX" >
+%1$d
+                    </ns1:g>"
+                </string>
+                <string
+                    name="color_swatch_description_selected"
+                    msgid="5020921249944943124" >"Colour 
+<ns1:g id="COLOR_INDEX" >
+%1$d
+                    </ns1:g> selected"
+                </string>
+            </file>
+            <file
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/values/styles.xml"
+                qualifiers="" >
+
+                <style name="UndoBarButton" >
+                    <item name="android:layout_width">
+wrap_content
+                    </item>
+                    <item name="android:layout_height">
+match_parent
+                    </item>
+                    <item name="android:paddingLeft">
+16dp
+                    </item>
+                    <item name="android:paddingRight">
+16dp
+                    </item>
+                    <item name="android:background">
+@drawable/undobar_button
+                    </item>
+                    <item name="android:drawableLeft">
+@drawable/ic_undobar_undo
+                    </item>
+                    <item name="android:drawablePadding">
+12dp
+                    </item>
+                    <item name="android:textAppearance">
+?android:textAppearanceSmall
+                    </item>
+                    <item name="android:textAllCaps">
+true
+                    </item>
+                    <item name="android:textStyle">
+bold
+                    </item>
+                    <item name="android:textColor">
+#fff
+                    </item>
+                    <item name="android:text">
+Undo
+                    </item>
+                </style>
+
+                <style name="UndoBarMessage" >
+                    <item name="android:layout_width">
+0dp
+                    </item>
+                    <item name="android:layout_weight">
+1
+                    </item>
+                    <item name="android:layout_height">
+wrap_content
+                    </item>
+                    <item name="android:layout_marginLeft">
+16dp
+                    </item>
+                    <item name="android:layout_gravity">
+center_vertical
+                    </item>
+                    <item name="android:layout_marginRight">
+16dp
+                    </item>
+                    <item name="android:textAppearance">
+?android:textAppearanceMedium
+                    </item>
+                    <item name="android:textColor">
+#fff
+                    </item>
+                </style>
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Light" >
+
+                    <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+                    -->
+                </style>
+
+                <style name="UndoBar" >
+                    <item name="android:layout_width">
+match_parent
+                    </item>
+                    <item name="android:layout_height">
+48dp
+                    </item>
+                    <item name="android:layout_gravity">
+bottom
+                    </item>
+                    <item name="android:layout_marginLeft">
+8dp
+                    </item>
+                    <item name="android:layout_marginRight">
+8dp
+                    </item>
+                    <item name="android:layout_marginBottom">
+16dp
+                    </item>
+                    <item name="android:orientation">
+horizontal
+                    </item>
+                    <item name="android:background">
+@drawable/undobar
+                    </item>
+                    <item name="android:clickable">
+true
+                    </item>
+                    <item name="android:showDividers">
+middle
+                    </item>
+                    <item name="android:divider">
+@drawable/undobar_divider
+                    </item>
+                    <item name="android:dividerPadding">
+10dp
+                    </item>
+                </style>
+
+                <style
+                    name="AppTheme"
+                    parent="AppBaseTheme" >
+
+                    <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+                </style>
+            </file>
+            <file
+                path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/values/themes.xml"
+                qualifiers="" >
+
+                <style
+                    name="MyActionBar.SubtitleText"
+                    parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle" >
+                    <item name="android:textColor">
+#EEE
+                    </item>
+                </style>
+
+                <style
+                    name="CustomTheme"
+                    parent="@android:style/Theme.Holo.Light" >
+                    <item name="android:actionBarStyle">
+@style/MyActionBar
+                    </item>
+                    <item name="android:actionMenuTextColor">
+#FFFFFF
+                    </item>
+                </style>
+
+                <style
+                    name="MyActionBar"
+                    parent="@android:style/Widget.Holo.Light.ActionBar" >
+                    <item name="android:titleTextStyle">
+@style/MyActionBar.TitleText
+                    </item>
+                    <item name="android:subtitleTextStyle">
+@style/MyActionBar.SubtitleText
+                    </item>
+                    <item name="android:background">
+#33b5e5
+                    </item>
+                    <item name="android:icon">
+@drawable/home_up
+                    </item>
+                </style>
+
+                <style
+                    name="MyActionBar.TitleText"
+                    parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title" >
+                    <item name="android:textColor">
+#FFFFFF
+                    </item>
+                </style>
+            </file>
+        </source>
+        <source path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/res/rs/debug" />
+        <source path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/build/res/generated/debug" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/debug/res" />
+    </dataSet>
+
+</merger>

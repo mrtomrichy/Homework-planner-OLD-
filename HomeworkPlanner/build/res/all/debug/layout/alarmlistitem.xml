@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:id="@+id/dateAlarm"
+        android:layout_width="wrap_content"
+        android:minWidth="130dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="24dp"
+        android:gravity="center_vertical"
+        android:text="boo"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="18dp"
+        style="@android:style/Widget.DeviceDefault.Light.Spinner"
+        android:layout_alignBottom="@+id/timeAlarm" />
+
+    <TextView
+        android:id="@+id/timeAlarm"
+        android:layout_width="wrap_content"
+        android:minWidth="90dp"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:gravity="center_vertical"
+        android:text="bah"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="18dp"
+        style="@android:style/Widget.DeviceDefault.Light.Spinner"
+        android:layout_toRightOf="@+id/dateAlarm" />
+
+    <ImageButton
+        android:id="@+id/deleteAlarmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:layout_alignBottom="@+id/timeAlarm"
+        android:background="@null" />
+
+</RelativeLayout><!-- From: file:/Users/Tom/Dropbox/Code%20and%20Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/alarmlistitem.xml -->

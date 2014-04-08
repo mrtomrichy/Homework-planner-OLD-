@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="65dp"
+        >
+
+        <TextView
+            android:id="@+id/listSubject"
+            android:layout_width="150dp"
+            android:layout_height="34dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:ellipsize="end"
+            android:lines="1"
+            android:scrollHorizontally="false"
+            android:text="Subject"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="@dimen/medium_text"
+            android:layout_toLeftOf="@+id/listLate"
+            android:layout_marginRight="50dp"
+            android:singleLine="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="sans-serif-condensed" />
+
+        <TextView
+            android:id="@+id/listTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@id/listSubject"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxWidth="120dp"
+            android:text="Title"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="@dimen/large_text"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="15dp"
+            android:singleLine="true"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="sans-serif-light" />
+
+        <TextView
+            android:id="@+id/listLate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/micro_text"
+            android:singleLine="true"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_alignTop="@+id/listSubject"
+            android:layout_alignBaseline="@+id/listSubject"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true" />
+
+        <ImageView
+            android:layout_width="10sp"
+            android:layout_height="fill_parent"
+            android:id="@+id/color_picker"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homeworkComplete"
+            android:layout_alignTop="@+id/listTitle"
+            android:layout_alignRight="@+id/listLate"
+            android:layout_alignEnd="@+id/listLate" />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/newTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TITLE"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/micro_text"
+        android:fontFamily="sans-serif-condensed"
+        android:capitalize="characters" />
+
+    <EditText
+        android:id="@+id/newTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:ems="10"
+        android:inputType="textCapSentences"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <TextView
+        android:id="@+id/newSubjectText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SUBJECT"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/micro_text"
+        android:fontFamily="sans-serif-condensed"
+        android:capitalize="characters" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/newSubject"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:ems="10"
+            android:inputType="textCapSentences"
+            android:layout_weight="10" />
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/color_picker_button"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/newDateDueText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DATE DUE"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/micro_text"
+        android:fontFamily="sans-serif-condensed"
+        android:capitalize="characters" />
+
+    <TextView
+        android:id="@+id/viewDate"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/date_picker_click"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="Date"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/newNotesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTES"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/micro_text"
+        android:fontFamily="sans-serif-condensed"
+        android:capitalize="characters" />
+
+    <EditText
+        android:id="@+id/newNotes"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:ems="10"
+        android:gravity="top|left"
+        android:inputType="textCapSentences|textMultiLine"
+        android:minHeight="100dp" />
+
+    <TextView
+        android:id="@+id/newRemindText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REMIND ME"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/micro_text"
+        android:fontFamily="sans-serif-condensed"
+        android:capitalize="characters" />
+
+</LinearLayout><!-- From: file:/Users/Tom/Dropbox/Code%20and%20Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/res/layout/homework_input_main.xml -->

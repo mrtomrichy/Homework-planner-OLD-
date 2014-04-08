@@ -1,0 +1,47 @@
+<!-- From: file:/Users/Tom/Dropbox/Code%20and%20Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/AndroidManifest.xml -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="22" android:versionName="15.7" package="com.tom.hwk">
+
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <application android:allowBackup="true" android:allowClearUserData="true" android:icon="@drawable/icon" android:killAfterRestore="true" android:label="@string/app_name" android:theme="@style/CustomTheme">
+
+        <activity android:label="@string/app_name" android:name="com.tom.hwk.Main">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/app_name" android:name="com.tom.hwk.ViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEWHOMEWORK"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/app_name" android:name="com.tom.hwk.EditHomework" android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.EDITHOMEWORK"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/app_name" android:name="com.tom.hwk.Information">
+            <intent-filter>
+                <action android:name="android.intent.action.INFORMATION"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.tom.hwk.system.BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.tom.hwk.system.AlarmReceiver"/>
+
+
+    </application>
+
+</manifest>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="main" >
+        <source path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/main/assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/Tom/Dropbox/Code and Work/Android/Apps/HomeworkPlannerProject/HomeworkPlanner/src/debug/assets" />
+    </dataSet>
+
+</merger>

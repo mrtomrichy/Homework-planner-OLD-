@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="normal_color">#00FFFFFF</color>
+    <color name="grey">#C8C8C8</color>
+    <color name="cyan">#33B5E5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="div">#999999</color>
+    <string-array name="default_color_choice_values" translatable="false">
+        <item>#33b5e5</item>
+        <item>#aa66cc</item>
+        <item>#99cc00</item>
+        <item>#ffbb33</item>
+        <item>#ff4444</item>
+        <item>#0099cc</item>
+        <item>#9933cc</item>
+        <item>#669900</item>
+        <item>#ff8800</item>
+        <item>#cc0000</item>
+        <item>#FF82AB</item>
+        <item>#222222</item>
+        <item>#826541</item>
+        <item>#cccccc</item>
+        <item>#888888</item>
+    </string-array>
+</resources>
