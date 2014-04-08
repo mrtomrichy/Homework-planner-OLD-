@@ -55,10 +55,12 @@ public class HomeworkListAdapter extends ArrayAdapter { // adapter for list
     public void insertDeletedHomework(HomeworkItem deletedItem, ArrayList<HomeworkAlarm> deletedAlarms, int position){
         db.open();
         deletedItem.id = (int) db.addHomeworkToDatabase(deletedItem);
-        for(HomeworkAlarm alarm : deletedAlarms)
-            db.addAlarm(alarm);
         db.close();
 
+        for(HomeworkAlarm alarm : deletedAlarms) {
+            alarm.homeworkId = deletedItem.id;
+            db.addAlarm(alarm);
+        }
         new AlarmHelper().createAlarm(deletedItem, deletedAlarms, context.getApplicationContext());
 
         insert(deletedItem, position);
