@@ -13,4 +13,11 @@
     <string name="list_footer_info">NO HOMEWORK</string>
 
     <array name="main_drawer_options"><item>Homework List</item><item>Timetable</item></array>
+    <array name="sort_by_options"> <item>Date (Upcoming)</item>
+        <item>Date (Reverse)</item>
+        <item>Subject (a-z)</item>
+        <item>Subject (z-a)</item>
+        <item>Title (a-z</item>
+        <item>Title (z-a)</item>
+    </array>
 </resources>

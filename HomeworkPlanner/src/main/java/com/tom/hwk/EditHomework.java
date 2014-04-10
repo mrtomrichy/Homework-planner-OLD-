@@ -173,7 +173,7 @@ public class EditHomework extends Activity {
         color_button.setBackgroundColor(working_homework.color);
 
         updateDisplay(editDate, working_homework.day, working_homework.month, working_homework.year);
-    }// onCreate
+    }
 
     public void updateDisplay(TextView dateView, int thisDay, int thisMonth,
                               int thisYear) {
@@ -326,7 +326,6 @@ public class EditHomework extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.edithomeworkmenu, menu);
-
         return true;
     }
 
@@ -334,11 +333,9 @@ public class EditHomework extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.saveEditButton:
-                // app icon in action bar clicked; go home
                 editEntry();
                 return true;
             case android.R.id.home:
-                // app icon in action bar clicked; go home
                 if (edit) backToView(true);
                 else backToView(false);
                 return true;
@@ -350,7 +347,6 @@ public class EditHomework extends Activity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
     }
 
     public class AlarmAdapter extends ArrayAdapter { // adapter for list
