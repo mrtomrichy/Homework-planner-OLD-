@@ -15,12 +15,12 @@ public class BootReceiver extends BroadcastReceiver {
         HomeworkDatabase db = new HomeworkDatabase(context);
         AlarmHelper ma = new AlarmHelper();
         db.open();
-        ArrayList<HomeworkItem> hwks = db.getHomeworks();
+        ArrayList<HomeworkItem> hwks = db.getAllHomeworks();
         // repopulate an alarm receiver
 
         for (HomeworkItem hwk : hwks) {
-            ArrayList<HomeworkAlarm> alarms = db.getAlarmsById(hwk.id);
-            ma.createAlarm(hwk, alarms, context);
+            ArrayList<HomeworkAlarm> alarms = db.getAlarmsForHomework(hwk.id);
+            ma.createAlarmsFromList(hwk, alarms, context);
         }
         db.close();
     }

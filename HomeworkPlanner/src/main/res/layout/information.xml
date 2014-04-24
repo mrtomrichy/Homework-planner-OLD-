@@ -41,7 +41,7 @@
                 android:id="@+id/viewInfoText3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reminders"
+                android:text="About me"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="@dimen/large_text"
                 android:typeface="normal"
@@ -62,9 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:text="Rate This Application"
+                android:text="Review me!"
                 android:textSize="@dimen/medium_text"
-                android:fontFamily="sans-serif-condensed" />
+                android:fontFamily="sans-serif"/>
         </LinearLayout>
 
     </ScrollView>

@@ -12,8 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.tom.hwk.system.HomeworkAlarm;
-import com.tom.hwk.system.HomeworkDatabase;
+import com.tom.hwk.system.DatabaseAccessor;
 import com.tom.hwk.system.HomeworkItem;
 import com.tom.hwk.system.HomeworkListAdapter;
 
@@ -36,6 +35,8 @@ public class HomeworkListFragment extends Fragment {
   ViewHomeworkFragment view;
   HomeworkItem forward = null;
 
+  DatabaseAccessor db;
+
   /* An empty constructor to set initial settings */
   public HomeworkListFragment() {
     setRetainInstance(true);
@@ -51,10 +52,8 @@ public class HomeworkListFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    HomeworkDatabase db = new HomeworkDatabase(getActivity());
-    db.open();
-    hwks = db.getHomeworks();
-    db.close();
+    db = new DatabaseAccessor(getActivity());
+    hwks = db.getHomework();
   }
 
   /* On create view, we create the list that holds the homeworks, and add the various
@@ -64,7 +63,7 @@ public class HomeworkListFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.list_fragment, group, false);
 
-    EnhancedListView list = (EnhancedListView) v.findViewById(R.id.list); // get the list
+    final EnhancedListView list = (EnhancedListView) v.findViewById(R.id.list); // get the list
 
     list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       public void onItemClick(AdapterView<?> parent, View v,
@@ -94,9 +93,7 @@ public class HomeworkListFragment extends Fragment {
             switch (which) {
               case DialogInterface.BUTTON_POSITIVE:
                 //Yes button clicked
-                arrayAdapter.deleteHomework(p);
-                updateViewPane();
-                updateActionBar();
+                list.delete(p);
                 dialog.cancel();
                 break;
 
@@ -120,9 +117,8 @@ public class HomeworkListFragment extends Fragment {
       @Override
       public EnhancedListView.Undoable onDismiss(EnhancedListView enhancedListView, final int position) {
         final HomeworkItem deletedItem = hwks.get(position);
-        final ArrayList<HomeworkAlarm> deletedAlarms;
 
-        deletedAlarms = arrayAdapter.deleteHomework(position);
+        arrayAdapter.remove(deletedItem);
 
         updateViewPane();
         updateActionBar();
@@ -130,9 +126,14 @@ public class HomeworkListFragment extends Fragment {
         return new EnhancedListView.Undoable() {
           @Override
           public void undo() {
-            arrayAdapter.insertDeletedHomework(deletedItem, deletedAlarms, position);
+            arrayAdapter.insert(deletedItem, position);
             updateViewPane();
             updateActionBar();
+          }
+
+          @Override
+          public void discard() {
+            db.deleteHomework(deletedItem);
           }
         };
       }
@@ -156,15 +157,6 @@ public class HomeworkListFragment extends Fragment {
     return v;
   }
 
-  /* On start we ensure we have the action bar, and set it's information */
-  @Override
-  public void onStart() {
-    super.onStart();
-    if (ab == null) ab = getActivity().getActionBar();
-    ab.setTitle("Planner");
-    updateActionBar();
-  }
-
   /* On Resume we check if we need to show the view pane. If we do then we check if it
      already exists. If it does, we make it show a homework. If it doesn't exist, we
      create it and give it a homework to show. The forward variable holds the homework
@@ -173,6 +165,10 @@ public class HomeworkListFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
+
+    ab = getActivity().getActionBar();
+    ab.setTitle("Planner");
+    updateActionBar();
 
     if (Main.dualPane) {
       view = null;
@@ -213,7 +209,7 @@ public class HomeworkListFragment extends Fragment {
   }
 
   /* Updates the action bar to show the amount of current Homework items */
-  private void updateActionBar() {
+  public void updateActionBar() {
     String subtitle = hwks.size() == 1 ? " current homework" : " current homeworks";
     ab.setSubtitle(hwks.size() + subtitle);
   }

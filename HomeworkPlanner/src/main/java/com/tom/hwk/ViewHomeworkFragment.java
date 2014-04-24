@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tom.hwk.system.HomeworkAlarm;
-import com.tom.hwk.system.HomeworkDatabase;
 import com.tom.hwk.system.HomeworkItem;
 
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ public class ViewHomeworkFragment extends Fragment {
   private final String[] dayNames = new String[]
           {"Sunday", "Monday", "Tuesday", "Wednesday",
                   "Thursday", "Friday", "Saturday"};
-  private HomeworkDatabase db;
 
   TextView viewTitle;
   TextView viewDate;
@@ -55,7 +53,6 @@ public class ViewHomeworkFragment extends Fragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    db = new HomeworkDatabase(getActivity());
     if ((getResources().getConfiguration().screenLayout &= Configuration.SCREENLAYOUT_SIZE_MASK)
             == Configuration.SCREENLAYOUT_SIZE_LARGE) setRetainInstance(true);
     else setRetainInstance(false);
@@ -92,9 +89,7 @@ public class ViewHomeworkFragment extends Fragment {
       return;
     }
     this.hwk = hwk;
-    db.open();
-    alarms = db.getAlarmsById(hwk.id);
-    db.close();
+    alarms = hwk.alarms;
     viewTitle.setText(hwk.title);
     viewDate.setText(hwk.day + " / " + monthNames[hwk.month] + " / " + hwk.year);
     viewNotes.setText(hwk.notes);

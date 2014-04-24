@@ -7,13 +7,14 @@
     <string name="color_swatch_description" msgid="2883438431173736180">"Colour <xliff:g id="COLOR_INDEX">%1$d</xliff:g>"</string>
     <string name="color_swatch_description_selected" msgid="5020921249944943124">"Colour <xliff:g id="COLOR_INDEX">%1$d</xliff:g> selected"</string>
 
-    <string name="info_desc">This simple application is guaranteed to keep you and your homework organised with its simple, fast and effective reminders on when your homework is due in. When you wake up in the morning, there is no need to panic, as this planner will remind you that your homework is due!\nFuture updates will include: \'Mark As Done\', themes, and various other requested features!</string>
+    <string name="info_desc">This simple application is guaranteed to keep you and your homework organised with its simple, fast and effective reminders on when your homework is due in. When you wake up in the morning, there is no need to panic, as this planner will remind you that your homework is due!\n\nI am currently working on Timetables, storing Subject names and a widget, this will come in a big, 16.0 update towards the end of Summer.</string>
     <string name="info_me">I am currently at the University of Manchester studying Computer Science. I work on this in my spare time, which I don\'t end up with a lot of. I will do my best to keep it as up to date as possible and fix any bugs. Just leave me a comment on the store or email me (email listed on Play Store) and I\'ll sort any issues out ASAP! Also, feel free to leave any ideas you have for my app!</string>
 
     <string name="list_footer_info">NO HOMEWORK</string>
 
     <array name="main_drawer_options"><item>Homework List</item><item>Timetable</item></array>
-    <array name="sort_by_options"> <item>Date (Upcoming)</item>
+    <array name="sort_by_options">
+        <item>Date (Upcoming)</item>
         <item>Date (Reverse)</item>
         <item>Subject (a-z)</item>
         <item>Subject (z-a)</item>

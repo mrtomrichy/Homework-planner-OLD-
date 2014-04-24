@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.tom.hwk.R;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Tom on 30/12/2013.
@@ -23,49 +21,15 @@ import java.util.Date;
 public class HomeworkListAdapter extends ArrayAdapter { // adapter for list
   TextView footer_text;
   private Context context;
-  private Calendar today;
   private HomeworkDatabase db;
 
   public HomeworkListAdapter(Context context, int textViewResourceId, ArrayList<HomeworkItem> hwks, TextView footer_text) {
     super(context, textViewResourceId, hwks);
     this.context = context;
-    today = Calendar.getInstance();
-    today.set(Calendar.HOUR_OF_DAY, 0);
-    today.set(Calendar.SECOND, 0);
-    today.set(Calendar.MINUTE, 0);
     this.footer_text = footer_text;
+
     db = new HomeworkDatabase(context);
     updateFooter();
-  }
-
-  public ArrayList<HomeworkAlarm> deleteHomework(int position) {
-    HomeworkItem h = (HomeworkItem) getItem(position);
-    Thread t;
-    db.open();
-    db.removeEntry(h.id);
-    ArrayList<HomeworkAlarm> alarms = db.getAlarmsById(h.id);
-    new AlarmHelper().deleteAllAlarms(alarms, context.getApplicationContext());
-    db.deleteAlarms(h.id);
-    db.close();
-
-    remove(h);
-    notifyDataSetChanged();
-    return alarms;
-  }
-
-  public void insertDeletedHomework(HomeworkItem deletedItem, ArrayList<HomeworkAlarm> deletedAlarms, int position) {
-    db.open();
-    deletedItem.id = (int) db.addHomeworkToDatabase(deletedItem);
-    db.close();
-
-    for (HomeworkAlarm alarm : deletedAlarms) {
-      alarm.homeworkId = deletedItem.id;
-      db.addAlarm(alarm);
-    }
-    new AlarmHelper().createAlarm(deletedItem, deletedAlarms, context.getApplicationContext());
-
-    insert(deletedItem, position);
-    notifyDataSetChanged();
   }
 
   public void updateFooter() {
@@ -81,12 +45,10 @@ public class HomeworkListAdapter extends ArrayAdapter { // adapter for list
     updateFooter();
   }
 
-  ;
-
+  @Override
   public View getView(int position, View convertView, ViewGroup parent) {
     final HomeworkItem hwk = (HomeworkItem) getItem(position);
-    updateFooter();
-
+    //updateFooter();
 
     View v = convertView; // inflate the list
     final ViewHolder holder;
@@ -105,13 +67,7 @@ public class HomeworkListAdapter extends ArrayAdapter { // adapter for list
       holder = (ViewHolder) v.getTag();
     }
 
-
-    Calendar time = Calendar.getInstance();
-    time.setTime(hwk.dueDate);
-    Date d = new Date(today.getTimeInMillis());
-    Date d1 = new Date(time.getTimeInMillis() + 1000);
-
-    int daysUntil = (int) ((d1.getTime() - d.getTime()) / (1000 * 60 * 60 * 24));
+    int daysUntil = hwk.daysUntilDue();
 
     holder.title.setText(hwk.title);
     holder.subject.setText(hwk.subject);
@@ -125,10 +81,8 @@ public class HomeworkListAdapter extends ArrayAdapter { // adapter for list
       @Override
       public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         hwk.complete = b;
-        HomeworkDatabase db = new HomeworkDatabase(getContext());
-        db.open();
-        db.updateEntry(hwk);
-        db.close();
+        DatabaseAccessor db = new DatabaseAccessor(context);
+        db.updateHomeworkStatus(hwk);
         setStatusText(holder, hwk);
       }
     });
@@ -144,22 +98,20 @@ public class HomeworkListAdapter extends ArrayAdapter { // adapter for list
   }
 
   public void setStatusText(ViewHolder holder, HomeworkItem hwk) {
-    if (hwk.isLate()) { // set if they are late or not
+    if (hwk.isComplete()) {
+      holder.listLate.setTextColor(Color.rgb(104, 220, 50));
+      holder.listLate.setText("Complete");
+    } else {
       if (hwk.isToday()) {
         holder.listLate.setTextColor(Color.rgb(255, 165, 0));
         holder.listLate.setText("Due Today!");
-      } else {
+      } else if (hwk.isLate()) {
         holder.listLate.setTextColor(Color.RED);
         holder.listLate.setText("Late");
+      } else {
+        holder.listLate.setTextColor(Color.rgb(104, 220, 50));
+        holder.listLate.setText("Ongoing");
       }
-    } else {
-      holder.listLate.setTextColor(Color.rgb(104, 220, 50));
-      holder.listLate.setText("Ongoing");
-    }
-
-    if (hwk.complete) {
-      holder.listLate.setTextColor(Color.rgb(104, 220, 50));
-      holder.listLate.setText("Complete");
     }
   }
 
