@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="CustomTheme" parent="@android:style/Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
-        <item name="android:actionMenuTextColor">#FFFFFF</item>
-    </style>
-
     <!-- ActionBar styles -->
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:titleTextStyle">@style/MyActionBar.TitleText</item>
@@ -22,6 +17,11 @@
     <!-- ActionBar title text -->
     <style name="MyActionBar.SubtitleText" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
         <item name="android:textColor">#EEE</item>
+    </style>
+
+    <style name="ListStyle" parent="@android:style/Widget.Holo.Light.ListView">
+        <item name="android:divider">@color/div</item>
+        <item name="android:dividerHeight">1px</item>
     </style>
 
 </resources>

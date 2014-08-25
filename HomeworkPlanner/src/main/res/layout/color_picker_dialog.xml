@@ -33,7 +33,7 @@
             android:layout_gravity="center"
             android:gravity="center" />
 
-        <com.tom.hwk.system.colorpicker.ColorPickerPalette
+        <com.tom.hwk.utils.colorpicker.ColorPickerPalette
             android:id="@+id/color_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

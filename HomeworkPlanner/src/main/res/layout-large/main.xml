@@ -11,16 +11,18 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/homework_list_content"
-        android:layout_weight="8"></FrameLayout>
+        android:layout_weight="8" />
+
     <View
         android:layout_width="1dp"
         android:layout_height="fill_parent"
-        android:background="@android:color/darker_gray"></View>
+        android:background="@android:color/darker_gray" />
+
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/view_homework_content"
-        android:layout_weight="5"></FrameLayout>
+        android:layout_weight="5" />
 
 
 </LinearLayout>
