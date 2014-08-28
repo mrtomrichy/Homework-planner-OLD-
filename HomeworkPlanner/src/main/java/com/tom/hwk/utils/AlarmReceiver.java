@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 
 import com.tom.hwk.R;
 import com.tom.hwk.db.AlarmDatabase;
@@ -24,10 +25,9 @@ public class AlarmReceiver extends BroadcastReceiver {
       HomeworkItem h = dbAccessor.getHomeworkWithId(b.getInt(HomeworkItem.ID_TAG));
       int id = b.getInt(HomeworkAlarm.ID_TAG);
 
-      AlarmDatabase db = new AlarmDatabase(context);
-      db.open();
-      db.deleteAlarm(id);
-      db.close();
+      DatabaseAccessor db = new DatabaseAccessor(context);
+      db.deleteAlarm(id, h);
+
 
       NotificationCompat.Builder mBuilder =
               new NotificationCompat.Builder(context)

@@ -48,8 +48,14 @@ public class SubjectDatabase {
     ContentValues cv = new ContentValues();
     cv.put(KEY_ROW_SUBJECT, subject);
     this.open();
-    long id = mDatabase.insert(DATABASE_SUBJECT_TABLE, null, cv);
-    this.close();
+    long id = -1;
+    try {
+      id = mDatabase.insert(DATABASE_SUBJECT_TABLE, null, cv);
+    } catch (Exception e) {
+      id = -1;
+    } finally {
+      this.close();
+    }
     return id;
   }
 
@@ -66,9 +72,9 @@ public class SubjectDatabase {
     return subjects;
   }
 
-  public void deleteSubject(String subject){
+  public void deleteSubject(String subject) {
     this.open();
-    mDatabase.delete(DATABASE_SUBJECT_TABLE, KEY_ROW_SUBJECT + "='"+subject+"'", null);
+    mDatabase.delete(DATABASE_SUBJECT_TABLE, KEY_ROW_SUBJECT + "='" + subject + "'", null);
   }
 
   private class SubjectDB extends SQLiteOpenHelper {

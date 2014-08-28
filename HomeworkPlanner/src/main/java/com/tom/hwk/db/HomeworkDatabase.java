@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import com.tom.hwk.utils.AlarmUtils;
 import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.utils.HomeworkAlarm;
 import com.tom.hwk.utils.HomeworkItem;
@@ -154,37 +156,41 @@ public class HomeworkDatabase {
 
     // updates the database if needed
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-      if (oldVersion == 2) {
-        db.execSQL("ALTER TABLE " + DATABASE_HOMEWORK_TABLE + " ADD COLUMN "
-            + KEY_COLOR_CODE + " INTEGER NOT NULL DEFAULT -13388315;");
-        db.execSQL("ALTER TABLE " + DATABASE_HOMEWORK_TABLE + " ADD COLUMN "
-            + KEY_COMPLETE + " INTEGER NOT NULL DEFAULT 0;");
-      } else if (oldVersion == 3) {
-        db.execSQL("ALTER TABLE " + DATABASE_HOMEWORK_TABLE + " ADD COLUMN "
-            + KEY_COMPLETE + " INTEGER NOT NULL DEFAULT 0;");
-      } else if (oldVersion == 4) {
-        String[] columns = new String[]{AlarmDatabase.KEY_ALARM_ID, AlarmDatabase.KEY_ALARM_HOMEWORK_ID,
-            AlarmDatabase.KEY_ALARM_DAY, AlarmDatabase.KEY_ALARM_MONTH, AlarmDatabase.KEY_ALARM_YEAR,
-            AlarmDatabase.KEY_ALARM_MINUTE, AlarmDatabase.KEY_ALARM_HOUR};
+      switch (oldVersion) {
+        case 1:
+          db.execSQL("DROP TABLE IF EXISTS " + DATABASE_HOMEWORK_TABLE);
+          onCreate(db);
+        case 2:
+          db.execSQL("ALTER TABLE " + DATABASE_HOMEWORK_TABLE + " ADD COLUMN "
+              + KEY_COLOR_CODE + " INTEGER NOT NULL DEFAULT -13388315;");
+        case 3:
+          db.execSQL("ALTER TABLE " + DATABASE_HOMEWORK_TABLE + " ADD COLUMN "
+              + KEY_COMPLETE + " INTEGER NOT NULL DEFAULT 0;");
+        case 4:
+          String[] columns = new String[]{AlarmDatabase.KEY_ALARM_ID, AlarmDatabase.KEY_ALARM_HOMEWORK_ID,
+              AlarmDatabase.KEY_ALARM_DAY, AlarmDatabase.KEY_ALARM_MONTH, AlarmDatabase.KEY_ALARM_YEAR,
+              AlarmDatabase.KEY_ALARM_MINUTE, AlarmDatabase.KEY_ALARM_HOUR};
 
-        Cursor c = this.getReadableDatabase().query(AlarmDatabase.DATABASE_ALARM_TABLE, columns, null, null,
-            null, null, null);
-        DatabaseAccessor dbAccessor = new DatabaseAccessor(mContext);
-        while (c.moveToNext()) {
-          HomeworkAlarm alarm = new HomeworkAlarm(c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_ID)),
-              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_HOMEWORK_ID)),
-              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_DAY)),
-              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_MONTH)),
-              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_YEAR)),
-              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_MINUTE)),
-              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_HOUR)));
-              dbAccessor.addAlarm(alarm);
-        }
+          Cursor c = db.query(AlarmDatabase.DATABASE_ALARM_TABLE, columns, null, null,
+              null, null, null);
+          DatabaseAccessor dbAccessor = new DatabaseAccessor(mContext);
+          AlarmUtils alarmUtils = new AlarmUtils();
 
-        db.execSQL("DROP TABLE " + AlarmDatabase.DATABASE_ALARM_TABLE);
-      } else {
-        db.execSQL("DROP TABLE IF EXISTS " + DATABASE_HOMEWORK_TABLE);
-        onCreate(db);
+          while (c.moveToNext()) {
+            HomeworkAlarm alarm = new HomeworkAlarm(c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_ID)),
+                c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_DAY)),
+                c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_MONTH)),
+                c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_YEAR)),
+                c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_HOUR)),
+                c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_MINUTE)),
+                c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_HOMEWORK_ID)));
+
+            alarmUtils.deleteAlarm(alarm, mContext);
+
+            alarm.id = (int) dbAccessor.addAlarm(alarm);
+
+            alarmUtils.createAlarm(alarm, mContext);
+          }
       }
     }
 

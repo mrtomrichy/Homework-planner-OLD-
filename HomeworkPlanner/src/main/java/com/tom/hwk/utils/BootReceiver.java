@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.tom.hwk.db.HomeworkDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BootReceiver extends BroadcastReceiver {
 
@@ -14,15 +15,13 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         // RE-SET ALL ALARMS FROM THE DATABASE WHEN PHONE IS TURNED ON
-        HomeworkDatabase db = new HomeworkDatabase(context);
+        DatabaseAccessor db = new DatabaseAccessor(context);
         AlarmUtils ma = new AlarmUtils();
-        db.open();
-        ArrayList<HomeworkItem> hwks = db.getAllHomeworks();
+        List<HomeworkItem> hwks = db.getAllHomework();
         // repopulate an alarm receiver
 
         for (HomeworkItem hwk : hwks) {
-            ma.createAlarmsFromList(hwk, hwk.alarms, context);
+            ma.createAlarmsFromList(hwk.alarms, context);
         }
-        db.close();
     }
 }

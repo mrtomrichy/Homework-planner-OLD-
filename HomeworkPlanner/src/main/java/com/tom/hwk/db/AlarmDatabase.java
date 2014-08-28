@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.tom.hwk.utils.HomeworkAlarm;
 
@@ -59,11 +60,12 @@ public class AlarmDatabase {
     cv.put(KEY_ALARM_HOUR, alarm.hour);
     this.open();
     long id = mDatabase.insert(DATABASE_ALARM_TABLE, null, cv);
+    
     this.close();
     return id;
   }
 
-  public void deleteAlarms(int homeworkID) {
+  public void deleteAlarmsForHomework(int homeworkID) {
     this.open();
     mDatabase.delete(DATABASE_ALARM_TABLE, KEY_ALARM_HOMEWORK_ID + " = "
         + homeworkID, null);

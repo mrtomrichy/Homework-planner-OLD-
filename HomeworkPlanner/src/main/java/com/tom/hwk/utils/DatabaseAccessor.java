@@ -1,19 +1,13 @@
 package com.tom.hwk.utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.tom.hwk.db.AlarmDatabase;
 import com.tom.hwk.db.HomeworkDatabase;
 import com.tom.hwk.db.SubjectDatabase;
-import com.tom.hwk.utils.AlarmUtils;
-import com.tom.hwk.utils.HomeworkAlarm;
-import com.tom.hwk.utils.HomeworkItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.security.auth.Subject;
 
 /**
  * Created by Tom on 19/04/2014.
@@ -37,27 +31,31 @@ public class DatabaseAccessor {
 
   public List<HomeworkItem> getAllHomework() {
     if (homeworks == null) {
-      homeworks = new ArrayList<HomeworkItem>();
-      homeworks.clear();
-
-      for (HomeworkItem item : homeworkDB.getAllHomeworks())
-        homeworks.add(item);
+      getHomeworkFromDatabase();
     }
 
     return homeworks;
   }
 
-  public void addSubject(String subject){
+  public void getHomeworkFromDatabase(){
+    homeworks = new ArrayList<HomeworkItem>();
+    homeworks.clear();
+
+    for (HomeworkItem item : homeworkDB.getAllHomeworks())
+      homeworks.add(item);
+  }
+
+  public void addSubject(String subject) {
     subjectDB.addSubject(subject);
   }
 
-  public List<String> getAllSubjects(){
+  public List<String> getAllSubjects() {
     List<String> subjects = subjectDB.getSubjects();
 
     return subjects;
   }
 
-  public void deleteSubject(String subject){
+  public void deleteSubject(String subject) {
     subjectDB.deleteSubject(subject);
   }
 
@@ -68,8 +66,8 @@ public class DatabaseAccessor {
     return null;
   }
 
-  public HomeworkItem getHomeworkAtPosition(int position){
-    if(position >= getAllHomework().size() || getAllHomework().size() == 0)
+  public HomeworkItem getHomeworkAtPosition(int position) {
+    if (position >= getAllHomework().size() || getAllHomework().size() == 0)
       return null;
     return getAllHomework().get(position);
   }
@@ -80,7 +78,7 @@ public class DatabaseAccessor {
       alarm.homeworkId = hwk.id;
       alarm.id = (int) alarmDB.addNewAlarm(alarm);
     }
-    ma.createAlarmsFromList(hwk, hwk.alarms, con.getApplicationContext());
+    ma.createAlarmsFromList(hwk.alarms, con.getApplicationContext());
     subjectDB.addSubject(hwk.subject);
     homeworks.add(hwk);
   }
@@ -91,7 +89,7 @@ public class DatabaseAccessor {
     for (HomeworkAlarm alarm : oldAlarms) alarmDB.deleteAlarm(alarm.id);
     ma.deleteAllAlarms(oldAlarms, con.getApplicationContext());
     for (HomeworkAlarm alarm : hwk.alarms) alarm.id = (int) alarmDB.addNewAlarm(alarm);
-    ma.createAlarmsFromList(hwk, hwk.alarms, con.getApplicationContext());
+    ma.createAlarmsFromList(hwk.alarms, con.getApplicationContext());
     subjectDB.addSubject(hwk.subject);
   }
 
@@ -102,10 +100,17 @@ public class DatabaseAccessor {
   public void deleteHomework(HomeworkItem hwk) {
     ma.deleteAllAlarms(hwk.alarms, con.getApplicationContext());
     homeworkDB.removeHomework(hwk.id);
-    alarmDB.deleteAlarms(hwk.id);
+    alarmDB.deleteAlarmsForHomework(hwk.id);
   }
 
-  public void addAlarm(HomeworkAlarm alarm){
-    alarmDB.addNewAlarm(alarm);
+  public long addAlarm(HomeworkAlarm alarm) {
+    return alarmDB.addNewAlarm(alarm);
+  }
+
+  public void deleteAlarm(int id, HomeworkItem hwk) {
+    alarmDB.deleteAlarm(id);
+    for(HomeworkAlarm alarm : hwk.alarms)
+      if(alarm.id == id)
+        hwk.alarms.remove(alarm);
   }
 }
