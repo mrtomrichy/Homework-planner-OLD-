@@ -11,9 +11,7 @@ import android.support.v4.app.TaskStackBuilder;
 
 import com.tom.hwk.R;
 import com.tom.hwk.db.AlarmDatabase;
-import com.tom.hwk.db.DatabaseAccessor;
 import com.tom.hwk.ui.ViewActivity;
-import com.tom.hwk.db.HomeworkDatabase;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

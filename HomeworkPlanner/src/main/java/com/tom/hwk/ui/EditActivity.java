@@ -13,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -22,8 +24,7 @@ import android.widget.Toast;
 
 import com.tom.hwk.R;
 import com.tom.hwk.adapters.AlarmAdapter;
-import com.tom.hwk.db.DatabaseAccessor;
-import com.tom.hwk.db.HomeworkDatabase;
+import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.utils.HomeworkAlarm;
 import com.tom.hwk.utils.HomeworkItem;
 import com.tom.hwk.utils.colorpicker.ColorPickerDialog;
@@ -35,7 +36,8 @@ import java.util.Calendar;
 
 public class EditActivity extends Activity {
 
-  private TextView editTitle, editSubject, editNotes, editDate;
+  private TextView editTitle, editNotes, editDate;
+  AutoCompleteTextView editSubject;
   private HomeworkItem working_homework;
   private AlarmAdapter adapter;
   private ArrayList<HomeworkAlarm> alarms;
@@ -45,7 +47,7 @@ public class EditActivity extends Activity {
   private String[] monthNames = new String[]{"Jan", "Feb", "Mar", "Apr", "May",
       "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"};
 
-  DatabaseAccessor db;
+  private DatabaseAccessor db;
 
   private boolean edit;
 
@@ -105,7 +107,8 @@ public class EditActivity extends Activity {
 
 
     editTitle = (TextView) findViewById(R.id.newTitle);
-    editSubject = (TextView) findViewById(R.id.newSubject);
+    editSubject = (AutoCompleteTextView) findViewById(R.id.newSubject);
+    editSubject.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, db.getAllSubjects()));
     editNotes = (TextView) findViewById(R.id.newNotes);
     editDate = (TextView) findViewById(R.id.viewDate);
     editDate.setOnClickListener(new OnClickListener() {

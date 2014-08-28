@@ -57,16 +57,23 @@ public class AlarmDatabase {
     cv.put(KEY_ALARM_YEAR, alarm.year);
     cv.put(KEY_ALARM_MINUTE, alarm.minute);
     cv.put(KEY_ALARM_HOUR, alarm.hour);
-    return mDatabase.insert(DATABASE_ALARM_TABLE, null, cv);
+    this.open();
+    long id = mDatabase.insert(DATABASE_ALARM_TABLE, null, cv);
+    this.close();
+    return id;
   }
 
   public void deleteAlarms(int homeworkID) {
+    this.open();
     mDatabase.delete(DATABASE_ALARM_TABLE, KEY_ALARM_HOMEWORK_ID + " = "
         + homeworkID, null);
+    this.close();
   }
 
   public void deleteAlarm(int alarmID) {
+    this.open();
     mDatabase.delete(DATABASE_ALARM_TABLE, KEY_ALARM_ID + " = " + alarmID, null);
+    this.close();
   }
 
   public ArrayList<HomeworkAlarm> getAlarmsForHomework(int homeworkID) {
@@ -78,7 +85,7 @@ public class AlarmDatabase {
     String[] columns = new String[]{KEY_ALARM_ID, KEY_ALARM_HOMEWORK_ID,
         KEY_ALARM_DAY, KEY_ALARM_MONTH, KEY_ALARM_YEAR,
         KEY_ALARM_MINUTE, KEY_ALARM_HOUR};
-
+    this.open();
     Cursor c = mDatabase.query(DATABASE_ALARM_TABLE, columns, whereString, null,
         null, null, null);
 
@@ -99,6 +106,7 @@ public class AlarmDatabase {
 
       alarms.add(thisAlarm);
     }
+    this.close();
 
     return alarms;
   }

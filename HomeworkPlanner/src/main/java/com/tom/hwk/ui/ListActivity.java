@@ -12,7 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.tom.hwk.R;
-import com.tom.hwk.db.DatabaseAccessor;
+import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.ui.fragments.HomeworkListFragment;
 import com.tom.hwk.ui.fragments.ViewHomeworkFragment;
 import com.tom.hwk.utils.HomeworkItem;
@@ -92,24 +92,31 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     // Check which menu item was pressed
+    Intent intent;
+
     switch (item.getItemId()) {
       case R.id.reorder:
         showReorderDialog();
         return true;
       case R.id.infoScreen:
-        Intent intent = new Intent(this, InfoActivity.class);
+        intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
         finish();
         return true;
       case R.id.addNew:
-        Intent newIntent = new Intent(this, EditActivity.class);
-        startActivity(newIntent);
+        intent = new Intent(this, EditActivity.class);
+        startActivity(intent);
+        finish();
+        return true;
+      case R.id.settingsScreen:
+        intent = new Intent(this, PreferencesActivity.class);
+        startActivity(intent);
         finish();
         return true;
       case R.id.editButton:
-        Intent i = new Intent(this, EditActivity.class);
-        i.putExtra(HomeworkItem.ID_TAG, viewFragment.getHomework().id);
-        startActivity(i);
+        intent = new Intent(this, EditActivity.class);
+        intent.putExtra(HomeworkItem.ID_TAG, viewFragment.getHomework().id);
+        startActivity(intent);
         finish();
         return true;
       default:
@@ -119,7 +126,6 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
 
   @Override
   public void onListFragmentAttached() {
-
   }
 
   @Override
@@ -137,8 +143,8 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   }
 
   @Override
-  public void onHomeworkDeleted(int position, HomeworkItem deletedHomework){
-    if(viewFragment.getHomework() == deletedHomework) {
+  public void onHomeworkDeleted(int position, HomeworkItem deletedHomework) {
+    if (viewFragment.getHomework() == deletedHomework) {
       if (position == 0)
         viewFragment.updateDetails(dbAccessor.getHomeworkAtPosition(0));
       else

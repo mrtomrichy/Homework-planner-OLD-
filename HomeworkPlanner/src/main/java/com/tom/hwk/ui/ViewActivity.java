@@ -10,7 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.tom.hwk.R;
-import com.tom.hwk.db.DatabaseAccessor;
+import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.ui.fragments.ViewHomeworkFragment;
 import com.tom.hwk.utils.HomeworkItem;
 import com.tom.hwk.utils.Utils;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.tom.hwk.R;
 import com.tom.hwk.adapters.HomeworkListAdapter;
-import com.tom.hwk.db.DatabaseAccessor;
+import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.utils.HomeworkItem;
 
 import java.util.ArrayList;

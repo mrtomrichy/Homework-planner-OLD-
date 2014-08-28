@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.utils.HomeworkAlarm;
 import com.tom.hwk.utils.HomeworkItem;
 
@@ -28,7 +29,7 @@ public class HomeworkDatabase {
   public static final String DATABASE_NAME = "homeworkDB";
   public static final String DATABASE_HOMEWORK_TABLE = "homeworks";
 
-  public static final int DATABASE_VERSION = 4;
+  public static final int DATABASE_VERSION = 5;
   private final Context mContext;
   private HomeworkDB mHelper;
   private SQLiteDatabase mDatabase;
@@ -53,10 +54,11 @@ public class HomeworkDatabase {
   // method to get all homeworks
   public ArrayList<HomeworkItem> getAllHomeworks() {
     String[] columns = new String[]{KEY_ROW_ID, KEY_TITLE, KEY_SUBJECT,
-            KEY_DUE_DAY, KEY_DUE_MONTH, KEY_DUE_YEAR, KEY_NOTES,
-            KEY_COLOR_CODE, KEY_COMPLETE};
+        KEY_DUE_DAY, KEY_DUE_MONTH, KEY_DUE_YEAR, KEY_NOTES,
+        KEY_COLOR_CODE, KEY_COMPLETE};
+    this.open();
     Cursor c = mDatabase.query(DATABASE_HOMEWORK_TABLE, columns, null,
-            null, null, null, null);
+        null, null, null, null);
     ArrayList<HomeworkItem> hwks = new ArrayList<HomeworkItem>();
 
     int id = c.getColumnIndex(KEY_ROW_ID);
@@ -74,16 +76,17 @@ public class HomeworkDatabase {
 
     for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
       HomeworkItem h = new HomeworkItem(c.getInt(id), c.getString(iTitle), c.getString(iSub),
-              Integer.parseInt(c.getString(iDay)),
-              Integer.parseInt(c.getString(iMonth)),
-              Integer.parseInt(c.getString(iYear)),
-              c.getString(iNotes),
-              Integer.parseInt(c.getString(iColor)),
-              Integer.parseInt(c.getString(iComplete)) == 1,
-              alarmDB.getAlarmsForHomework(c.getInt(id)));
+          Integer.parseInt(c.getString(iDay)),
+          Integer.parseInt(c.getString(iMonth)),
+          Integer.parseInt(c.getString(iYear)),
+          c.getString(iNotes),
+          Integer.parseInt(c.getString(iColor)),
+          Integer.parseInt(c.getString(iComplete)) == 1,
+          alarmDB.getAlarmsForHomework(c.getInt(id)));
       hwks.add(h);
     }
     alarmDB.close();
+    this.close();
 
     Collections.sort(hwks);
     return hwks;
@@ -99,7 +102,10 @@ public class HomeworkDatabase {
     cv.put(KEY_DUE_YEAR, hwk.year);
     cv.put(KEY_COLOR_CODE, hwk.color);
     cv.put(KEY_COMPLETE, hwk.getCompleteAsInt());
-    return mDatabase.insert(DATABASE_HOMEWORK_TABLE, null, cv);
+    this.open();
+    long id = mDatabase.insert(DATABASE_HOMEWORK_TABLE, null, cv);
+    this.close();
+    return id;
   }
 
   // method to update a homework
@@ -113,19 +119,22 @@ public class HomeworkDatabase {
     cv.put(KEY_DUE_YEAR, hwk.year);
     cv.put(KEY_COLOR_CODE, hwk.color);
     cv.put(KEY_COMPLETE, hwk.getCompleteAsInt());
+    this.open();
     mDatabase.update(DATABASE_HOMEWORK_TABLE, cv, KEY_ROW_ID + "=" + hwk.id,
         null);
+    this.close();
   }
 
   // method to remove a homework
   public void removeHomework(int id) {
+    this.open();
     mDatabase.delete(DATABASE_HOMEWORK_TABLE, KEY_ROW_ID + "=" + id, null);
+    this.close();
   }
 
 
-
   // This class creates the database
-  private static class HomeworkDB extends SQLiteOpenHelper {
+  private class HomeworkDB extends SQLiteOpenHelper {
     // constructor takes context
     public HomeworkDB(Context context) {
       super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -134,26 +143,45 @@ public class HomeworkDatabase {
     // creates the Database
     public void onCreate(SQLiteDatabase db) {
       db.execSQL("CREATE TABLE " + DATABASE_HOMEWORK_TABLE + "("
-              + KEY_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-              + KEY_TITLE + " TEXT NOT NULL, " + KEY_SUBJECT
-              + " TEXT NOT NULL, " + KEY_DUE_DAY + " INTEGER NOT NULL, "
-              + KEY_DUE_MONTH + " INTEGER NOT NULL, " + KEY_DUE_YEAR
-              + " INTEGER NOT NULL, " + KEY_NOTES + " LONGTEXT NOT NULL, "
-              + KEY_COLOR_CODE + " INTEGER NOT NULL, "
-              + KEY_COMPLETE + " INTEGER NOT NULL)");
-
+          + KEY_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+          + KEY_TITLE + " TEXT NOT NULL, " + KEY_SUBJECT
+          + " TEXT NOT NULL, " + KEY_DUE_DAY + " INTEGER NOT NULL, "
+          + KEY_DUE_MONTH + " INTEGER NOT NULL, " + KEY_DUE_YEAR
+          + " INTEGER NOT NULL, " + KEY_NOTES + " LONGTEXT NOT NULL, "
+          + KEY_COLOR_CODE + " INTEGER NOT NULL, "
+          + KEY_COMPLETE + " INTEGER NOT NULL)");
     }
 
     // updates the database if needed
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
       if (oldVersion == 2) {
         db.execSQL("ALTER TABLE " + DATABASE_HOMEWORK_TABLE + " ADD COLUMN "
-                + KEY_COLOR_CODE + " INTEGER NOT NULL DEFAULT -13388315;");
+            + KEY_COLOR_CODE + " INTEGER NOT NULL DEFAULT -13388315;");
         db.execSQL("ALTER TABLE " + DATABASE_HOMEWORK_TABLE + " ADD COLUMN "
-                + KEY_COMPLETE + " INTEGER NOT NULL DEFAULT 0;");
+            + KEY_COMPLETE + " INTEGER NOT NULL DEFAULT 0;");
       } else if (oldVersion == 3) {
         db.execSQL("ALTER TABLE " + DATABASE_HOMEWORK_TABLE + " ADD COLUMN "
-                + KEY_COMPLETE + " INTEGER NOT NULL DEFAULT 0;");
+            + KEY_COMPLETE + " INTEGER NOT NULL DEFAULT 0;");
+      } else if (oldVersion == 4) {
+        String[] columns = new String[]{AlarmDatabase.KEY_ALARM_ID, AlarmDatabase.KEY_ALARM_HOMEWORK_ID,
+            AlarmDatabase.KEY_ALARM_DAY, AlarmDatabase.KEY_ALARM_MONTH, AlarmDatabase.KEY_ALARM_YEAR,
+            AlarmDatabase.KEY_ALARM_MINUTE, AlarmDatabase.KEY_ALARM_HOUR};
+
+        Cursor c = this.getReadableDatabase().query(AlarmDatabase.DATABASE_ALARM_TABLE, columns, null, null,
+            null, null, null);
+        DatabaseAccessor dbAccessor = new DatabaseAccessor(mContext);
+        while (c.moveToNext()) {
+          HomeworkAlarm alarm = new HomeworkAlarm(c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_ID)),
+              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_HOMEWORK_ID)),
+              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_DAY)),
+              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_MONTH)),
+              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_YEAR)),
+              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_MINUTE)),
+              c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_HOUR)));
+              dbAccessor.addAlarm(alarm);
+        }
+
+        db.execSQL("DROP TABLE " + AlarmDatabase.DATABASE_ALARM_TABLE);
       } else {
         db.execSQL("DROP TABLE IF EXISTS " + DATABASE_HOMEWORK_TABLE);
         onCreate(db);
