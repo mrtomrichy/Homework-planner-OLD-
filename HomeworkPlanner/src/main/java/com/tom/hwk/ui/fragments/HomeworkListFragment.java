@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,14 +51,14 @@ public class HomeworkListFragment extends Fragment {
   }
 
   public HomeworkListFragment() {
-    setRetainInstance(true);
+
   }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     databaseAccessor = new DatabaseAccessor(getActivity());
-    hwks = new ArrayList<HomeworkItem>();
+    hwks = databaseAccessor.getAllHomework();
   }
 
   @Override
@@ -91,7 +92,10 @@ public class HomeworkListFragment extends Fragment {
             switch (which) {
               case DialogInterface.BUTTON_POSITIVE:
                 //Yes button clicked
-                list.delete(p);
+                HomeworkItem deleted = hwks.get(p);
+                databaseAccessor.deleteHomework(deleted);
+                arrayAdapter.notifyDataSetChanged();
+                ((ListAttachedListener) getActivity()).onHomeworkDeleted(p, deleted);
                 dialog.cancel();
                 break;
 
@@ -114,14 +118,20 @@ public class HomeworkListFragment extends Fragment {
     list.setDismissCallback(new EnhancedListView.OnDismissCallback() {
       @Override
       public EnhancedListView.Undoable onDismiss(EnhancedListView enhancedListView, final int position) {
-        final HomeworkItem deletedItem = hwks.remove(position);
-        ((ListAttachedListener)getActivity()).onHomeworkDeleted(position, deletedItem);
+        final HomeworkItem deletedItem = hwks.get(position);
+
+        hwks.remove(deletedItem);
+        Log.e("HOMEWORKSSIZE", hwks.size()+"");
         arrayAdapter.notifyDataSetChanged();
+        Log.e("HOMEWORKSSIZE", hwks.size()+"");
+        ((ListAttachedListener) getActivity()).onHomeworkDeleted(position, deletedItem);
 
         return new EnhancedListView.Undoable() {
           @Override
           public void undo() {
-            arrayAdapter.insert(deletedItem, position);
+            hwks.add(position, deletedItem);
+            Log.e("HOMEWORKSSIZE", hwks.size()+"");
+            arrayAdapter.notifyDataSetChanged();
           }
 
           @Override
@@ -139,7 +149,7 @@ public class HomeworkListFragment extends Fragment {
     list.addFooterView(new View(getActivity()));
 
     // Create the Array Adapter
-    arrayAdapter = new HomeworkListAdapter(getActivity(), 0, databaseAccessor.getAllHomework());
+    arrayAdapter = new HomeworkListAdapter(getActivity(), 0, hwks);
     list.setAdapter(arrayAdapter);
 
     return v;

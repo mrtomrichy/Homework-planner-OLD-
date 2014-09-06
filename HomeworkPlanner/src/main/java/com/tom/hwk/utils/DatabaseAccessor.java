@@ -30,12 +30,13 @@ public class DatabaseAccessor {
   }
 
   public List<HomeworkItem> getAllHomework() {
-    getHomeworkFromDatabase();
+    if(homeworks == null)
+      getHomeworkFromDatabase();
 
     return homeworks;
   }
 
-  public void getHomeworkFromDatabase() {
+  private void getHomeworkFromDatabase() {
     if (homeworks == null)
       homeworks = new ArrayList<HomeworkItem>();
     homeworks.clear();

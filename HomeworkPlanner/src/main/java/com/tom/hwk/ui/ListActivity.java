@@ -12,9 +12,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.tom.hwk.R;
-import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.ui.fragments.HomeworkListFragment;
 import com.tom.hwk.ui.fragments.ViewHomeworkFragment;
+import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.utils.HomeworkItem;
 import com.tom.hwk.utils.Utils;
 
@@ -114,6 +114,7 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
         finish();
         return true;
       case R.id.editButton:
+        if (viewFragment.getHomework() == null) return true;
         intent = new Intent(this, EditActivity.class);
         intent.putExtra(HomeworkItem.ID_TAG, viewFragment.getHomework().id);
         startActivity(intent);
@@ -144,11 +145,17 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
 
   @Override
   public void onHomeworkDeleted(int position, HomeworkItem deletedHomework) {
-    if (viewFragment.getHomework() == deletedHomework) {
-      if (position == 0)
-        viewFragment.updateDetails(dbAccessor.getHomeworkAtPosition(0));
-      else
-        viewFragment.updateDetails(dbAccessor.getHomeworkAtPosition(position - 1));
+    if(Utils.isDualPane(this))
+      if(dbAccessor.getAllHomework().size() > 0) {
+        if(viewFragment.getHomework() == deletedHomework){
+          if(position == 0){
+            viewFragment.updateDetails(dbAccessor.getHomeworkAtPosition(0));
+          }else{
+            viewFragment.updateDetails(dbAccessor.getHomeworkAtPosition(position-1));
+          }
+        }
+      }else{
+        viewFragment.updateDetails(null);
     }
   }
 
