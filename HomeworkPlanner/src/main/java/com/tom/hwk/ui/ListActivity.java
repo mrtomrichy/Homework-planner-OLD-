@@ -56,6 +56,16 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
     fragmentManager.executePendingTransactions();
   }
 
+  @Override
+  public void onResume(){
+    super.onResume();
+    if(Utils.isDualPane(this) && viewFragment.getHomework() != null)
+      for(HomeworkItem item : dbAccessor.getAllHomework())
+        if(item.id == viewFragment.getHomework().id)
+          return;
+      viewFragment.updateDetails(null);
+  }
+
   /* Create the options menu */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {

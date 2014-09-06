@@ -118,19 +118,15 @@ public class HomeworkListFragment extends Fragment {
     list.setDismissCallback(new EnhancedListView.OnDismissCallback() {
       @Override
       public EnhancedListView.Undoable onDismiss(EnhancedListView enhancedListView, final int position) {
-        final HomeworkItem deletedItem = hwks.get(position);
+        final HomeworkItem deletedItem = hwks.remove(position);
 
-        hwks.remove(deletedItem);
-        Log.e("HOMEWORKSSIZE", hwks.size()+"");
         arrayAdapter.notifyDataSetChanged();
-        Log.e("HOMEWORKSSIZE", hwks.size()+"");
         ((ListAttachedListener) getActivity()).onHomeworkDeleted(position, deletedItem);
 
         return new EnhancedListView.Undoable() {
           @Override
           public void undo() {
             hwks.add(position, deletedItem);
-            Log.e("HOMEWORKSSIZE", hwks.size()+"");
             arrayAdapter.notifyDataSetChanged();
           }
 
