@@ -59,11 +59,12 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   @Override
   public void onResume(){
     super.onResume();
-    if(Utils.isDualPane(this) && viewFragment.getHomework() != null)
-      for(HomeworkItem item : dbAccessor.getAllHomework())
-        if(item.id == viewFragment.getHomework().id)
+    if(Utils.isDualPane(this) && viewFragment.getHomework() != null) {
+      for (HomeworkItem item : dbAccessor.getAllHomework())
+        if (item.id == viewFragment.getHomework().id)
           return;
       viewFragment.updateDetails(null);
+    }
   }
 
   /* Create the options menu */
@@ -154,26 +155,10 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   }
 
   @Override
-  public void onHomeworkDeleted(int position, HomeworkItem deletedHomework) {
-    if(Utils.isDualPane(this))
-      if(dbAccessor.getAllHomework().size() > 0) {
-        if(viewFragment.getHomework() == deletedHomework){
-          if(position == 0){
-            viewFragment.updateDetails(dbAccessor.getHomeworkAtPosition(0));
-          }else{
-            viewFragment.updateDetails(dbAccessor.getHomeworkAtPosition(position-1));
-          }
-        }
-      }else{
-        viewFragment.updateDetails(null);
-    }
-  }
-
-  @Override
   public void onViewFragmentAttached() {
     if (Utils.isDualPane(this))
       if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(HomeworkItem.ID_TAG)) {
-        viewFragment.updateDetails(dbAccessor.getHomeworkWithId(getIntent().getExtras().getInt(HomeworkItem.ID_TAG)));
+        listFragment.setSelectedHomework(dbAccessor.getHomeworkWithId(getIntent().getExtras().getInt(HomeworkItem.ID_TAG)));
         getIntent().removeExtra(HomeworkItem.ID_TAG);
       } else {
         viewFragment.updateDetails(listFragment.getSelectedHomework());

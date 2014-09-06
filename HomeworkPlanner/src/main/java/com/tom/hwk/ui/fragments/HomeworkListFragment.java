@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import com.tom.hwk.adapters.HomeworkListAdapter;
 import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.utils.HomeworkItem;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,8 +44,6 @@ public class HomeworkListFragment extends Fragment {
     public abstract void onListFragmentAttached();
 
     public abstract void onHomeworkSelected(HomeworkItem hwk);
-
-    public abstract void onHomeworkDeleted(int position, HomeworkItem item);
   }
 
   public HomeworkListFragment() {
@@ -92,10 +88,9 @@ public class HomeworkListFragment extends Fragment {
             switch (which) {
               case DialogInterface.BUTTON_POSITIVE:
                 //Yes button clicked
-                HomeworkItem deleted = hwks.get(p);
+                HomeworkItem deleted = removeHomeworkFromList(p);
                 databaseAccessor.deleteHomework(deleted);
                 arrayAdapter.notifyDataSetChanged();
-                ((ListAttachedListener) getActivity()).onHomeworkDeleted(p, deleted);
                 dialog.cancel();
                 break;
 
@@ -118,10 +113,8 @@ public class HomeworkListFragment extends Fragment {
     list.setDismissCallback(new EnhancedListView.OnDismissCallback() {
       @Override
       public EnhancedListView.Undoable onDismiss(EnhancedListView enhancedListView, final int position) {
-        final HomeworkItem deletedItem = hwks.remove(position);
-
+        final HomeworkItem deletedItem = removeHomeworkFromList(position);
         arrayAdapter.notifyDataSetChanged();
-        ((ListAttachedListener) getActivity()).onHomeworkDeleted(position, deletedItem);
 
         return new EnhancedListView.Undoable() {
           @Override
@@ -159,13 +152,36 @@ public class HomeworkListFragment extends Fragment {
     if (lastSelected != null)
       for (HomeworkItem h : hwks)
         if (h.id == lastSelected.id)
-          lastSelected = h;
+          selectHomework(h);
     arrayAdapter.notifyDataSetChanged();
 
     if (getActivity() instanceof ListAttachedListener)
       ((ListAttachedListener) getActivity()).onListFragmentAttached();
     else
       throw new RuntimeException("Activity must implement ListAttachedListener");
+  }
+
+  private HomeworkItem removeHomeworkFromList(int positionDeleted) {
+    HomeworkItem deleted = hwks.remove(positionDeleted);
+
+    if (deleted != lastSelected)
+      return deleted;
+
+    if (hwks.size() > 0) {
+      if (positionDeleted == 0)
+        selectHomework(hwks.get(0));
+      else
+        selectHomework(hwks.get(positionDeleted - 1));
+    } else {
+      selectHomework(null);
+    }
+
+    return deleted;
+  }
+
+  private void selectHomework(HomeworkItem hwk){
+    lastSelected = hwk;
+    ((ListAttachedListener) getActivity()).onHomeworkSelected(lastSelected);
   }
 
   /* Reorder the homework by the specified order */
@@ -175,8 +191,11 @@ public class HomeworkListFragment extends Fragment {
   }
 
   public HomeworkItem getSelectedHomework() {
-    if (lastSelected == null && hwks.size() > 0) lastSelected = hwks.get(0);
     return lastSelected;
+  }
+
+  public void setSelectedHomework(HomeworkItem hwk){
+    selectHomework(hwk);
   }
 
 }
