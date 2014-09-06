@@ -30,15 +30,14 @@ public class DatabaseAccessor {
   }
 
   public List<HomeworkItem> getAllHomework() {
-    if (homeworks == null) {
-      getHomeworkFromDatabase();
-    }
+    getHomeworkFromDatabase();
 
     return homeworks;
   }
 
-  public void getHomeworkFromDatabase(){
-    homeworks = new ArrayList<HomeworkItem>();
+  public void getHomeworkFromDatabase() {
+    if (homeworks == null)
+      homeworks = new ArrayList<HomeworkItem>();
     homeworks.clear();
 
     for (HomeworkItem item : homeworkDB.getAllHomeworks())
@@ -80,7 +79,7 @@ public class DatabaseAccessor {
     }
     ma.createAlarmsFromList(hwk.alarms, con.getApplicationContext());
     subjectDB.addSubject(hwk.subject);
-    homeworks.add(hwk);
+    getHomeworkFromDatabase();
   }
 
   public void updateHomework(HomeworkItem hwk, ArrayList<HomeworkAlarm> oldAlarms) {
@@ -91,6 +90,7 @@ public class DatabaseAccessor {
     for (HomeworkAlarm alarm : hwk.alarms) alarm.id = (int) alarmDB.addNewAlarm(alarm);
     ma.createAlarmsFromList(hwk.alarms, con.getApplicationContext());
     subjectDB.addSubject(hwk.subject);
+    getHomeworkFromDatabase();
   }
 
   public void updateHomeworkStatus(HomeworkItem hwk) {
@@ -101,6 +101,7 @@ public class DatabaseAccessor {
     ma.deleteAllAlarms(hwk.alarms, con.getApplicationContext());
     homeworkDB.removeHomework(hwk.id);
     alarmDB.deleteAlarmsForHomework(hwk.id);
+    getHomeworkFromDatabase();
   }
 
   public long addAlarm(HomeworkAlarm alarm) {
@@ -109,8 +110,8 @@ public class DatabaseAccessor {
 
   public void deleteAlarm(int id, HomeworkItem hwk) {
     alarmDB.deleteAlarm(id);
-    for(HomeworkAlarm alarm : hwk.alarms)
-      if(alarm.id == id)
+    for (HomeworkAlarm alarm : hwk.alarms)
+      if (alarm.id == id)
         hwk.alarms.remove(alarm);
   }
 }

@@ -24,18 +24,15 @@ import java.util.List;
 public class HomeworkListAdapter extends ArrayAdapter<HomeworkItem> { // adapter for list
 
   private Context context;
-  private HomeworkDatabase db;
 
   public HomeworkListAdapter(Context context, int textViewResourceId, List<HomeworkItem> hwks) {
     super(context, textViewResourceId, hwks);
     this.context = context;
-
-    db = new HomeworkDatabase(context);
   }
 
   @Override
   public View getView(int position, View convertView, ViewGroup parent) {
-    final HomeworkItem hwk = (HomeworkItem) getItem(position);
+    final HomeworkItem hwk = getItem(position);
 
     View v = convertView; // inflate the list
     final ViewHolder holder;

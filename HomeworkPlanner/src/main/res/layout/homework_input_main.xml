@@ -9,7 +9,7 @@
         android:id="@+id/newTitleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TITLE"
+        android:text="@string/homework_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="@dimen/micro_text"
         android:fontFamily="sans-serif-condensed" />
@@ -28,11 +28,10 @@
         android:id="@+id/newSubjectText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SUBJECT"
+        android:text="@string/homework_subject"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="@dimen/micro_text"
-        android:fontFamily="sans-serif-condensed"
-        android:capitalize="characters" />
+        android:fontFamily="sans-serif-condensed" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -41,7 +40,7 @@
 
         <AutoCompleteTextView
             android:id="@+id/newSubject"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:ems="10"
@@ -52,6 +51,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/color_picker_button"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="10dp" />
     </LinearLayout>
@@ -60,11 +61,10 @@
         android:id="@+id/newDateDueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DATE DUE"
+        android:text="@string/homework_date_due"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="@dimen/micro_text"
-        android:fontFamily="sans-serif-condensed"
-        android:capitalize="characters" />
+        android:fontFamily="sans-serif-condensed" />
 
     <TextView
         android:id="@+id/viewDate"
@@ -73,20 +73,19 @@
         android:background="@drawable/date_picker_click"
         android:clickable="true"
         android:gravity="center_vertical"
+        android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:text="Date"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/newNotesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NOTES"
+        android:text="@string/homework_notes"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="@dimen/micro_text"
-        android:fontFamily="sans-serif-condensed"
-        android:capitalize="characters" />
+        android:fontFamily="sans-serif-condensed" />
 
     <EditText
         android:id="@+id/newNotes"
@@ -94,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:ems="10"
-        android:gravity="top|left"
+        android:gravity="start"
         android:inputType="textCapSentences|textMultiLine"
         android:minHeight="100dp" />
 
@@ -102,10 +101,9 @@
         android:id="@+id/newRemindText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="REMIND ME"
+        android:text="@string/homework_remind_me"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="@dimen/micro_text"
-        android:fontFamily="sans-serif-condensed"
-        android:capitalize="characters" />
+        android:fontFamily="sans-serif-condensed" />
 
 </LinearLayout>

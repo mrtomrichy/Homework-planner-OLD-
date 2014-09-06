@@ -10,5 +10,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/preference_listview"
         android:layout_gravity="center_horizontal"
-        style="@style/ListStyle" />
+        style="@style/ListStyle"/>
 </LinearLayout>

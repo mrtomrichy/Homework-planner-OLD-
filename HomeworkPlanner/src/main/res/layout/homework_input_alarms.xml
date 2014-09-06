@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Add Reminder"
+        android:text="@string/homework_add_reminder"
         android:fontFamily="sans-serif-condensed" />
 </RelativeLayout>

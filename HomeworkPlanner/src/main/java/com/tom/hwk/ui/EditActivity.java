@@ -201,7 +201,7 @@ public class EditActivity extends Activity {
     String checksubject = editSubject.getText().toString();
     String checknotes = editNotes.getText().toString();
 
-    if (!checktitle.equals("") && !checksubject.equals("") && !checknotes.equals("")) {
+    if (!checktitle.equals("") && !checksubject.equals("")) {
       try {
         working_homework.title = checktitle;
         working_homework.subject = checksubject;
@@ -231,10 +231,7 @@ public class EditActivity extends Activity {
       }
     } else {
 
-      String errors = "Oops! \nYou've forgotten: ";
-      errors += checktitle.equals("") ? "\n -Title" : "";
-      errors += checksubject.equals("") ? "\n -Subject" : "";
-      errors += checknotes.equals("") ? "\n -Notes" : "";
+      String errors = "This homework needs a title and subject";
 
       Toast.makeText(this, errors, Toast.LENGTH_LONG).show();
     }

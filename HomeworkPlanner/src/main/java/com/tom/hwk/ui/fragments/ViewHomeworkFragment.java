@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.tom.hwk.R;
@@ -41,7 +42,8 @@ public class ViewHomeworkFragment extends Fragment {
 
   private HomeworkItem hwk = null;
 
-  private RelativeLayout details, none;
+  private ScrollView details;
+  private RelativeLayout none;
 
   private static ViewHomeworkFragment sharedInstance = null;
 
@@ -61,7 +63,7 @@ public class ViewHomeworkFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle savedInstanceState) {
     View v = inflater.inflate(R.layout.viewhomework, group, false);
 
-    details = (RelativeLayout) v.findViewById(R.id.view_homework_details);
+    details = (ScrollView) v.findViewById(R.id.view_homework_details);
     none = (RelativeLayout) v.findViewById(R.id.view_homework_hidden);
 
     viewTitle = (TextView) v.findViewById(R.id.viewTitle);

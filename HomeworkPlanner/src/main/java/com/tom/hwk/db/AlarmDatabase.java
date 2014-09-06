@@ -60,7 +60,7 @@ public class AlarmDatabase {
     cv.put(KEY_ALARM_HOUR, alarm.hour);
     this.open();
     long id = mDatabase.insert(DATABASE_ALARM_TABLE, null, cv);
-    
+
     this.close();
     return id;
   }
