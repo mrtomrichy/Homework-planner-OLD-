@@ -21,7 +21,7 @@ public class InfoActivity extends Activity {
 
     ActionBar ab = getActionBar();
     ab.setDisplayHomeAsUpEnabled(true);
-    ab.setTitle("InfoActivity");
+    ab.setTitle("Information");
 
     TextView whatInfoText = (TextView) findViewById(R.id.viewInfoText2);
     TextView reminderInfoText = (TextView) findViewById(R.id.viewInfoText4);
