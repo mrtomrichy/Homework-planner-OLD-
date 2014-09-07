@@ -163,10 +163,14 @@ public class HomeworkListFragment extends Fragment {
     super.onResume();
 
     hwks = databaseAccessor.getAllHomework();
-    if (lastSelected != null)
+    if (lastSelected != null) {
       for (HomeworkItem h : hwks)
         if (h.id == lastSelected.id)
           selectHomework(h, false);
+    }else{
+      if(hwks.size() > 0)
+        selectHomework(hwks.get(0), false);
+    }
     arrayAdapter.notifyDataSetChanged();
 
 
