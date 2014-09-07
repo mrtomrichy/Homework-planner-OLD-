@@ -3,27 +3,36 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:0.12.2'
+=======
+        classpath "com.android.tools.build:gradle:0.12.+"
+>>>>>>> dev-branch
     }
 }
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
 }
 
 android {
+<<<<<<< HEAD
     compileSdkVersion 19
     buildToolsVersion '19.1.0'
+=======
+    compileSdkVersion 20
+    buildToolsVersion "20"
+>>>>>>> dev-branch
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 19
+        targetSdkVersion 20
     }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.0.0+'
     compile 'de.timroes.android:EnhancedListView:0.3.0@aar'
     compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.android.support:support-v4:20.0.0'
 }

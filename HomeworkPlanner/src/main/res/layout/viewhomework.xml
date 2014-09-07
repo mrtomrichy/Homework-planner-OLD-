@@ -1,192 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <ScrollView
         android:id="@+id/view_homework_details"
-        android:focusableInTouchMode="false"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:visibility="gone">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ScrollView
-                android:id="@+id/scrollView1"
+            <ImageView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="10dp"
+                android:id="@+id/viewColorCode"/>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/view_homework_section_padding">
 
-                    <ImageView
-                        android:layout_width="fill_parent"
-                        android:layout_height="10dp"
-                        android:id="@+id/viewColorCode"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentBottom="false"
-                        android:layout_alignParentRight="true" />
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
+                    <TextView
+                        android:id="@+id/viewTitleText"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="5dp">
+                        android:text="@string/homework_title"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="@dimen/micro_text"
+                        android:fontFamily="sans-serif-condensed"/>
 
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/view_homework_section_padding">
-
-                            <TextView
-                                android:id="@+id/viewTitleText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="TITLE:"
-                                android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:textSize="@dimen/micro_text"
-                                android:fontFamily="sans-serif-condensed" />
-
-                            <TextView
-                                android:id="@+id/viewTitle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:layout_marginLeft="50dp"
-                                android:text="View Title"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textSize="@dimen/large_text"
-                                android:fontFamily="sans-serif-light" />
-
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@android:color/darker_gray"
-                            android:padding="5dp" />
-
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/view_homework_section_padding">
-
-                            <LinearLayout
-                                android:layout_width="190dp"
-                                android:layout_height="fill_parent"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/viewDateText"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="10dp"
-                                    android:text="DATE DUE:"
-                                    android:textAppearance="?android:attr/textAppearanceLarge"
-                                    android:textSize="@dimen/micro_text"
-                                    android:fontFamily="sans-serif-condensed" />
-
-                                <TextView
-                                    android:id="@+id/viewDate"
-                                    android:layout_width="fill_parent"
-                                    android:layout_height="wrap_content"
-                                    android:padding="8dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:text="xxxxxx"
-                                    android:minWidth="120dp"
-                                    android:textAppearance="?android:attr/textAppearanceMedium"
-                                    android:textSize="@dimen/medium_text"
-                                    android:fontFamily="sans-serif-light"
-                                    android:textStyle="italic" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="fill_parent"
-                                android:layout_gravity="right"
-                                android:layout_marginLeft="20sp"
-                                android:gravity="left"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/viewRemindersText"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="10dp"
-                                    android:text="REMINDERS:"
-                                    android:textAppearance="?android:attr/textAppearanceLarge"
-                                    android:textSize="@dimen/micro_text"
-                                    android:fontFamily="sans-serif-condensed" />
-
-                                <TextView
-                                    android:id="@+id/viewReminderAmount"
-                                    android:layout_width="80dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="20dp"
-                                    android:layout_marginLeft="20dp"
-                                    android:padding="8dp"
-                                    android:text="xxxxxx"
-                                    android:textAppearance="?android:attr/textAppearanceMedium"
-                                    android:background="@drawable/date_picker_click"
-                                    android:clickable="true"
-                                    android:textSize="@dimen/medium_text"
-                                    android:fontFamily="sans-serif-light"
-                                    android:textStyle="italic" />
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="fill_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@android:color/darker_gray"
-                            android:padding="5dp" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="@dimen/view_homework_section_padding">
-
-                            <TextView
-                                android:id="@+id/viewNotesText"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="NOTES:"
-                                android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:textSize="@dimen/micro_text"
-                                android:fontFamily="sans-serif-condensed" />
-
-                            <TextView
-                                android:id="@+id/viewNotes"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="20dp"
-                                android:layout_marginLeft="20dp"
-                                android:text="View Notes"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:focusableInTouchMode="false"
-                                android:fontFamily="sans-serif-light"
-                                android:textSize="@dimen/medium_text" />
-                        </LinearLayout>
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/viewTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginLeft="50dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="@dimen/large_text"
+                        android:fontFamily="sans-serif-light"/>
 
                 </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
 
-    </RelativeLayout>
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/darker_gray"
+                    android:padding="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/view_homework_section_padding">
+
+                    <LinearLayout
+                        android:layout_width="190dp"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/viewDateText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="@string/homework_date_due"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="@dimen/micro_text"
+                            android:fontFamily="sans-serif-condensed"/>
+
+                        <TextView
+                            android:id="@+id/viewDate"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="8dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:minWidth="120dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="@dimen/medium_text"
+                            android:fontFamily="sans-serif-light"
+                            android:textStyle="italic"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="start"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/viewRemindersText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="@string/homework_reminders"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textSize="@dimen/micro_text"
+                            android:fontFamily="sans-serif-condensed"/>
+
+                        <TextView
+                            android:id="@+id/viewReminderAmount"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:padding="8dp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:background="@drawable/date_picker_click"
+                            android:clickable="true"
+                            android:textSize="@dimen/medium_text"
+                            android:fontFamily="sans-serif-light"
+                            android:textStyle="italic"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@android:color/darker_gray"
+                    android:padding="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/view_homework_section_padding">
+
+                    <TextView
+                        android:id="@+id/viewNotesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/homework_notes"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textSize="@dimen/micro_text"
+                        android:fontFamily="sans-serif-condensed"/>
+
+                    <TextView
+                        android:id="@+id/viewNotes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:focusableInTouchMode="false"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="@dimen/medium_text"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -198,10 +181,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="NO HOMEWORK SELECTED"
+            android:text="@string/homework_view_no_homework"
             android:id="@+id/no_homework_selected_text"
-            android:textSize="10dp"
-            android:capitalize="words"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>

@@ -1,72 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scrollView1"
             android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/viewInfoText1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp">
+            android:text="@string/information_title"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/large_text"
+            android:typeface="normal"
+            android:fontFamily="sans-serif-condensed"/>
 
-            <TextView
-                android:id="@+id/viewInfoText1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="What is this?"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="@dimen/large_text"
-                android:typeface="normal"
-                android:fontFamily="sans-serif-condensed" />
+        <TextView
+            android:id="@+id/viewInfoText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/small_text"/>
 
-            <TextView
-                android:id="@+id/viewInfoText2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:textSize="@dimen/small_text" />
+        <TextView
+            android:id="@+id/viewInfoText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/information_about_me"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/large_text"
+            android:typeface="normal"
+            android:fontFamily="sans-serif-condensed"/>
 
-            <TextView
-                android:id="@+id/viewInfoText3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="About me"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="@dimen/large_text"
-                android:typeface="normal"
-                android:fontFamily="sans-serif-condensed" />
+        <TextView
+            android:id="@+id/viewInfoText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/small_text"/>
 
-            <TextView
-                android:id="@+id/viewInfoText4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:textSize="@dimen/small_text" />
+        <Button
+            android:id="@+id/rateButton"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/information_review_me"
+            android:textSize="@dimen/medium_text"
+            android:fontFamily="sans-serif"/>
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/rateButton"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:text="Review me!"
-                android:textSize="@dimen/medium_text"
-                android:fontFamily="sans-serif"/>
-        </LinearLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</ScrollView>

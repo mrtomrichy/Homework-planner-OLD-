@@ -7,8 +7,20 @@
         android:id="@+id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/div"
-        android:dividerHeight="1px"></de.timroes.android.listview.EnhancedListView>
+        style="@style/ListStyle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/list_footer_info"
+        android:id="@+id/homework_list_footer"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

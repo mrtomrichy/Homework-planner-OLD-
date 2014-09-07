@@ -5,13 +5,13 @@
         android:title="Sort By"
         android:enabled="true"
         android:menuCategory="alternative"
-        android:showAsAction="never"></item>
+        android:showAsAction="never"/>
     <item
         android:id="@+id/infoScreen"
         android:title="About"
         android:enabled="true"
         android:menuCategory="alternative"
-        android:showAsAction="never"></item>
+        android:showAsAction="never"/>
     <item
         android:id="@+id/addNew"
         android:icon="@drawable/ic_action_new"
@@ -19,7 +19,12 @@
         android:titleCondensed="Add"
         android:enabled="true"
         android:visible="true"
-        android:showAsAction="always"></item>
-
+        android:showAsAction="always"/>
+    <item
+        android:id="@+id/settingsScreen"
+        android:title="Manage Subjects"
+        android:enabled="true"
+        android:menuCategory="alternative"
+        android:showAsAction="never"/>
 
 </menu>
