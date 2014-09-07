@@ -44,7 +44,7 @@ public class HomeworkListFragment extends Fragment {
   private ListAttachedListener listener;
 
   public interface ListAttachedListener {
-    public abstract void onHomeworkSelected(HomeworkItem hwk);
+    public abstract void onHomeworkSelected(HomeworkItem hwk, boolean userInteracted);
   }
 
   public HomeworkListFragment() {
@@ -74,7 +74,7 @@ public class HomeworkListFragment extends Fragment {
       public void onItemClick(AdapterView<?> parent, View v,
                               int position, long arg3) {
         if (position >= 0) {
-          selectHomework(hwks.get(position));
+          selectHomework(hwks.get(position), true);
         }
       }
     });
@@ -113,7 +113,9 @@ public class HomeworkListFragment extends Fragment {
     list.setDismissCallback(new EnhancedListView.OnDismissCallback() {
       @Override
       public EnhancedListView.Undoable onDismiss(EnhancedListView enhancedListView, final int position) {
+        final boolean wasSelected = lastSelected == hwks.get(position);
         final HomeworkItem deletedItem = removeHomeworkFromList(position);
+
         arrayAdapter.notifyDataSetChanged();
 
         return new EnhancedListView.Undoable() {
@@ -121,6 +123,8 @@ public class HomeworkListFragment extends Fragment {
           public void undo() {
             hwks.add(position, deletedItem);
             arrayAdapter.notifyDataSetChanged();
+            if(wasSelected)
+              selectHomework(deletedItem, false);
           }
 
           @Override
@@ -162,7 +166,7 @@ public class HomeworkListFragment extends Fragment {
     if (lastSelected != null)
       for (HomeworkItem h : hwks)
         if (h.id == lastSelected.id)
-          lastSelected = h;
+          selectHomework(h, false);
     arrayAdapter.notifyDataSetChanged();
 
 
@@ -176,19 +180,19 @@ public class HomeworkListFragment extends Fragment {
 
     if (hwks.size() > 0) {
       if (positionDeleted == 0)
-        selectHomework(hwks.get(0));
+        selectHomework(hwks.get(0), false);
       else
-        selectHomework(hwks.get(positionDeleted - 1));
+        selectHomework(hwks.get(positionDeleted - 1), false);
     } else {
-      selectHomework(null);
+      selectHomework(null, false);
     }
 
     return deleted;
   }
 
-  private void selectHomework(HomeworkItem hwk) {
+  private void selectHomework(HomeworkItem hwk, boolean userInteracted) {
     lastSelected = hwk;
-    listener.onHomeworkSelected(lastSelected);
+    listener.onHomeworkSelected(lastSelected, userInteracted);
   }
 
   /* Reorder the homework by the specified order */
@@ -202,7 +206,7 @@ public class HomeworkListFragment extends Fragment {
   }
 
   public void setSelectedHomework(HomeworkItem hwk) {
-    selectHomework(hwk);
+    selectHomework(hwk, false);
   }
 
 }

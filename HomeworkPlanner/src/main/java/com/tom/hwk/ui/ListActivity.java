@@ -138,10 +138,10 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   }
 
   @Override
-  public void onHomeworkSelected(HomeworkItem hwk) {
+  public void onHomeworkSelected(HomeworkItem hwk, boolean userInteracted) {
     if (Utils.isDualPane(this)) {
       viewFragment.updateDetails(hwk);
-    } else {
+    } else if(userInteracted) {
       Intent i = new Intent(this, ViewActivity.class);
       Bundle b = new Bundle();
       b.putInt(HomeworkItem.ID_TAG, hwk.id); // add the homework
