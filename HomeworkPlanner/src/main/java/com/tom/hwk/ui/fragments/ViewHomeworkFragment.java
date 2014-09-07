@@ -1,5 +1,6 @@
 package com.tom.hwk.ui.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import java.util.Calendar;
 public class ViewHomeworkFragment extends Fragment {
 
   public interface ViewHomeworkAttachedListener {
-    public abstract void onViewFragmentAttached();
+    public abstract void onViewFragmentResumed();
   }
 
   private ArrayList<HomeworkAlarm> alarms;
@@ -46,6 +47,8 @@ public class ViewHomeworkFragment extends Fragment {
   private RelativeLayout none;
 
   private static ViewHomeworkFragment sharedInstance = null;
+
+  private ViewHomeworkAttachedListener listener;
 
   public static ViewHomeworkFragment getViewHomeworkFragment()
   {
@@ -76,12 +79,19 @@ public class ViewHomeworkFragment extends Fragment {
   }
 
   @Override
-  public void onResume() {
-    super.onResume();
+  public void onAttach(Activity a){
+    super.onAttach(a);
     if (getActivity() instanceof ViewHomeworkAttachedListener)
-      ((ViewHomeworkAttachedListener) getActivity()).onViewFragmentAttached();
+      listener = (ViewHomeworkAttachedListener) getActivity();
     else
       throw new RuntimeException("Activity must implement ViewHomeworkAttachedListener");
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+
+    listener.onViewFragmentResumed();
   }
 
   /* Returns the homework that is currently being viewed */

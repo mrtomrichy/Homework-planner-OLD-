@@ -104,7 +104,7 @@ public class ViewActivity extends Activity implements ViewHomeworkFragment.ViewH
   }
 
   @Override
-  public void onViewFragmentAttached() {
+  public void onViewFragmentResumed() {
     viewHomeworkFragment.updateDetails(hwk);
   }
 }

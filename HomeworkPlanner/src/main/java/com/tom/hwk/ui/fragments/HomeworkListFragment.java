@@ -1,5 +1,6 @@
 package com.tom.hwk.ui.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
@@ -40,9 +41,9 @@ public class HomeworkListFragment extends Fragment {
     return sharedInstance;
   }
 
-  public interface ListAttachedListener {
-    public abstract void onListFragmentAttached();
+  private ListAttachedListener listener;
 
+  public interface ListAttachedListener {
     public abstract void onHomeworkSelected(HomeworkItem hwk);
   }
 
@@ -73,8 +74,7 @@ public class HomeworkListFragment extends Fragment {
       public void onItemClick(AdapterView<?> parent, View v,
                               int position, long arg3) {
         if (position >= 0) {
-          HomeworkItem h = lastSelected = hwks.get(position);
-          ((ListAttachedListener) getActivity()).onHomeworkSelected(h);
+          selectHomework(hwks.get(position));
         }
       }
     });
@@ -145,6 +145,16 @@ public class HomeworkListFragment extends Fragment {
   }
 
   @Override
+  public void onAttach(Activity a) {
+    super.onAttach(a);
+
+    if (getActivity() instanceof ListAttachedListener)
+      listener = (ListAttachedListener) a;
+    else
+      throw new RuntimeException("Activity must implement ListAttachedListener");
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
 
@@ -152,13 +162,10 @@ public class HomeworkListFragment extends Fragment {
     if (lastSelected != null)
       for (HomeworkItem h : hwks)
         if (h.id == lastSelected.id)
-          selectHomework(h);
+          lastSelected = h;
     arrayAdapter.notifyDataSetChanged();
 
-    if (getActivity() instanceof ListAttachedListener)
-      ((ListAttachedListener) getActivity()).onListFragmentAttached();
-    else
-      throw new RuntimeException("Activity must implement ListAttachedListener");
+
   }
 
   private HomeworkItem removeHomeworkFromList(int positionDeleted) {
@@ -179,9 +186,9 @@ public class HomeworkListFragment extends Fragment {
     return deleted;
   }
 
-  private void selectHomework(HomeworkItem hwk){
+  private void selectHomework(HomeworkItem hwk) {
     lastSelected = hwk;
-    ((ListAttachedListener) getActivity()).onHomeworkSelected(lastSelected);
+    listener.onHomeworkSelected(lastSelected);
   }
 
   /* Reorder the homework by the specified order */
@@ -194,7 +201,7 @@ public class HomeworkListFragment extends Fragment {
     return lastSelected;
   }
 
-  public void setSelectedHomework(HomeworkItem hwk){
+  public void setSelectedHomework(HomeworkItem hwk) {
     selectHomework(hwk);
   }
 

@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -137,10 +138,6 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   }
 
   @Override
-  public void onListFragmentAttached() {
-  }
-
-  @Override
   public void onHomeworkSelected(HomeworkItem hwk) {
     if (Utils.isDualPane(this)) {
       viewFragment.updateDetails(hwk);
@@ -155,7 +152,7 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   }
 
   @Override
-  public void onViewFragmentAttached() {
+  public void onViewFragmentResumed() {
     if (Utils.isDualPane(this))
       if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(HomeworkItem.ID_TAG)) {
         listFragment.setSelectedHomework(dbAccessor.getHomeworkWithId(getIntent().getExtras().getInt(HomeworkItem.ID_TAG)));
