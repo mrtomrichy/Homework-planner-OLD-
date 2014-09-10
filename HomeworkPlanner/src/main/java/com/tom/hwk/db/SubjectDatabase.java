@@ -46,7 +46,7 @@ public class SubjectDatabase {
 
   public long addSubject(String subject) {
     ContentValues cv = new ContentValues();
-    cv.put(KEY_ROW_SUBJECT, subject);
+    cv.put(KEY_ROW_SUBJECT, subject.replace("''", "'").trim());
     this.open();
     long id = -1;
     try {
@@ -66,7 +66,7 @@ public class SubjectDatabase {
     Cursor c = mDatabase.query(DATABASE_SUBJECT_TABLE, columns, null, null, null, null, null);
 
     while (c.moveToNext())
-      subjects.add(c.getString(c.getColumnIndex(KEY_ROW_SUBJECT)));
+      subjects.add(c.getString(c.getColumnIndex(KEY_ROW_SUBJECT)).replace("''", "'"));
 
     this.close();
     return subjects;
@@ -74,7 +74,8 @@ public class SubjectDatabase {
 
   public void deleteSubject(String subject) {
     this.open();
-    mDatabase.delete(DATABASE_SUBJECT_TABLE, KEY_ROW_SUBJECT + "='" + subject + "'", null);
+    mDatabase.delete(DATABASE_SUBJECT_TABLE, KEY_ROW_SUBJECT + "='" + subject.replace("'", "''").trim() + "'", null);
+    this.close();
   }
 
   private class SubjectDB extends SQLiteOpenHelper {
