@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.tom.hwk.utils.AlarmUtils;
 import com.tom.hwk.utils.DatabaseAccessor;
@@ -77,11 +76,11 @@ public class HomeworkDatabase {
     alarmDB.open();
 
     for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
-      HomeworkItem h = new HomeworkItem(c.getInt(id), c.getString(iTitle), c.getString(iSub),
+      HomeworkItem h = new HomeworkItem(c.getInt(id), c.getString(iTitle).replace("''", "'"), c.getString(iSub).replace("''", "'"),
           Integer.parseInt(c.getString(iDay)),
           Integer.parseInt(c.getString(iMonth)),
           Integer.parseInt(c.getString(iYear)),
-          c.getString(iNotes),
+          c.getString(iNotes).replace("''", "'"),
           Integer.parseInt(c.getString(iColor)),
           Integer.parseInt(c.getString(iComplete)) == 1,
           alarmDB.getAlarmsForHomework(c.getInt(id)));
@@ -96,9 +95,9 @@ public class HomeworkDatabase {
 
   public long addNewHomework(HomeworkItem hwk) {
     ContentValues cv = new ContentValues();
-    cv.put(KEY_TITLE, hwk.title);
-    cv.put(KEY_SUBJECT, hwk.subject);
-    cv.put(KEY_NOTES, hwk.notes);
+    cv.put(KEY_TITLE, hwk.title.replace("'", "''").trim());
+    cv.put(KEY_SUBJECT, hwk.subject.replace("'", "''").trim());
+    cv.put(KEY_NOTES, hwk.notes.replace("'", "''").trim());
     cv.put(KEY_DUE_DAY, hwk.day);
     cv.put(KEY_DUE_MONTH, hwk.month);
     cv.put(KEY_DUE_YEAR, hwk.year);
@@ -113,9 +112,9 @@ public class HomeworkDatabase {
   // method to update a homework
   public void updateHomework(HomeworkItem hwk) {
     ContentValues cv = new ContentValues();
-    cv.put(KEY_TITLE, hwk.title);
-    cv.put(KEY_SUBJECT, hwk.subject);
-    cv.put(KEY_NOTES, hwk.notes);
+    cv.put(KEY_TITLE, hwk.title.replace("'", "''").trim());
+    cv.put(KEY_SUBJECT, hwk.subject.replace("'", "''").trim());
+    cv.put(KEY_NOTES, hwk.notes.replace("'", "''").trim());
     cv.put(KEY_DUE_DAY, hwk.day);
     cv.put(KEY_DUE_MONTH, hwk.month);
     cv.put(KEY_DUE_YEAR, hwk.year);
