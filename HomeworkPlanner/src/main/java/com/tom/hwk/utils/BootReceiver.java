@@ -15,7 +15,7 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         // RE-SET ALL ALARMS FROM THE DATABASE WHEN PHONE IS TURNED ON
-        DatabaseAccessor db = new DatabaseAccessor(context);
+        DatabaseAccessor db = DatabaseAccessor.getDBAccessor(context);
         AlarmUtils ma = new AlarmUtils();
         List<HomeworkItem> hwks = db.getAllHomework();
         // repopulate an alarm receiver

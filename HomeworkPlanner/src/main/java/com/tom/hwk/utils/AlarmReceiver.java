@@ -20,12 +20,11 @@ public class AlarmReceiver extends BroadcastReceiver {
   public void onReceive(Context context, Intent intent) {
 
     Bundle b = intent.getExtras();
-    DatabaseAccessor dbAccessor = new DatabaseAccessor(context);
+    DatabaseAccessor db = DatabaseAccessor.getDBAccessor(context);
     if (b != null) {
-      HomeworkItem h = dbAccessor.getHomeworkWithId(b.getInt(HomeworkItem.ID_TAG));
+      HomeworkItem h = db.getHomeworkWithId(b.getInt(HomeworkItem.ID_TAG));
       int id = b.getInt(HomeworkAlarm.ID_TAG);
 
-      DatabaseAccessor db = new DatabaseAccessor(context);
       db.deleteAlarm(id, h);
 
 

@@ -12,4 +12,12 @@ public class Utils {
         return c.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
                 || (config != Configuration.SCREENLAYOUT_SIZE_NORMAL && config != Configuration.SCREENLAYOUT_SIZE_SMALL);
     }
+
+  public static String getVersionNumber(Context c){
+    try {
+      return c.getPackageManager().getPackageInfo(c.getPackageName(), 0).versionName;
+    }catch(Exception e){
+      return "";
+    }
+  }
 }

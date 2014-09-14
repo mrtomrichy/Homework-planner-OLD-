@@ -54,7 +54,7 @@ public class HomeworkListFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    databaseAccessor = new DatabaseAccessor(getActivity());
+    databaseAccessor = DatabaseAccessor.getDBAccessor(getActivity());
     hwks = databaseAccessor.getAllHomework();
   }
 
@@ -136,7 +136,7 @@ public class HomeworkListFragment extends Fragment {
     });
 
     list.enableSwipeToDismiss();
-    list.setSwipeDirection(EnhancedListView.SwipeDirection.BOTH);
+    list.setSwipeDirection(EnhancedListView.SwipeDirection.END);
     list.setUndoStyle(EnhancedListView.UndoStyle.MULTILEVEL_POPUP);
     list.setUndoHideDelay(5000);
     list.addFooterView(new View(getActivity()));

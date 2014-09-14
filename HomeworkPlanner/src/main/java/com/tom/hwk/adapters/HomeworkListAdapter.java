@@ -65,7 +65,7 @@ public class HomeworkListAdapter extends ArrayAdapter<HomeworkItem> { // adapter
       @Override
       public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         hwk.complete = b;
-        DatabaseAccessor db = new DatabaseAccessor(context);
+        DatabaseAccessor db = DatabaseAccessor.getDBAccessor(context);
         db.updateHomeworkStatus(hwk);
         setStatusText(holder, hwk);
       }

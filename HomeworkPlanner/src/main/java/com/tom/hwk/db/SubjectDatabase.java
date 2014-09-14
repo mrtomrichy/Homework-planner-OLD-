@@ -88,7 +88,7 @@ public class SubjectDatabase {
     public void onCreate(SQLiteDatabase db) {
       db.execSQL("CREATE TABLE " + DATABASE_SUBJECT_TABLE + "("
           + KEY_ROW_SUBJECT + " TEXT UNIQUE ON CONFLICT IGNORE)");
-      DatabaseAccessor dbAccessor = new DatabaseAccessor(mContext);
+      DatabaseAccessor dbAccessor = DatabaseAccessor.getDBAccessor(mContext);
       List<HomeworkItem> hwks = dbAccessor.getAllHomework();
 
       for (HomeworkItem h : hwks) {

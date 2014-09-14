@@ -41,7 +41,7 @@ public class PreferencesActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_preferences);
 
-    dbAccessor = new DatabaseAccessor(this);
+    dbAccessor = DatabaseAccessor.getDBAccessor(this);
 
     ActionBar ab = getActionBar();
     ab.setDisplayHomeAsUpEnabled(true);

@@ -7,12 +7,15 @@ import com.tom.hwk.db.HomeworkDatabase;
 import com.tom.hwk.db.SubjectDatabase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Created by Tom on 19/04/2014.
  */
 public class DatabaseAccessor {
+  private static DatabaseAccessor sSharedInstance = null;
+
   private static Context con;
   private static HomeworkDatabase homeworkDB;
   private static AlarmDatabase alarmDB;
@@ -21,7 +24,7 @@ public class DatabaseAccessor {
 
   private static List<HomeworkItem> homeworks = null;
 
-  public DatabaseAccessor(Context context) {
+  private DatabaseAccessor(Context context) {
     con = context;
     homeworkDB = new HomeworkDatabase(con);
     alarmDB = new AlarmDatabase(con);
@@ -29,14 +32,21 @@ public class DatabaseAccessor {
     ma = new AlarmUtils();
   }
 
-  public List<HomeworkItem> getAllHomework() {
-    if(homeworks == null)
+  public static DatabaseAccessor getDBAccessor(Context c)
+  {
+    if(sSharedInstance == null)
+      sSharedInstance = new DatabaseAccessor(c);
+    return sSharedInstance;
+  }
+
+  public synchronized List<HomeworkItem> getAllHomework() {
+    if (homeworks == null)
       getHomeworkFromDatabase();
 
     return homeworks;
   }
 
-  private void getHomeworkFromDatabase() {
+  private synchronized void getHomeworkFromDatabase() {
     if (homeworks == null)
       homeworks = new ArrayList<HomeworkItem>();
     homeworks.clear();
@@ -45,34 +55,28 @@ public class DatabaseAccessor {
       homeworks.add(item);
   }
 
-  public void addSubject(String subject) {
+  public synchronized void addSubject(String subject) {
     subjectDB.addSubject(subject);
   }
 
-  public List<String> getAllSubjects() {
+  public synchronized List<String> getAllSubjects() {
     List<String> subjects = subjectDB.getSubjects();
 
     return subjects;
   }
 
-  public void deleteSubject(String subject) {
+  public synchronized void deleteSubject(String subject) {
     subjectDB.deleteSubject(subject);
   }
 
-  public HomeworkItem getHomeworkWithId(int id) {
+  public synchronized HomeworkItem getHomeworkWithId(int id) {
     for (HomeworkItem i : getAllHomework())
       if (i.id == id) return i;
 
     return null;
   }
 
-  public HomeworkItem getHomeworkAtPosition(int position) {
-    if (position >= getAllHomework().size() || getAllHomework().size() == 0)
-      return null;
-    return getAllHomework().get(position);
-  }
-
-  public void saveHomework(HomeworkItem hwk) {
+  public synchronized void saveHomework(HomeworkItem hwk) {
     hwk.id = (int) homeworkDB.addNewHomework(hwk);
     for (HomeworkAlarm alarm : hwk.alarms) {
       alarm.homeworkId = hwk.id;
@@ -83,7 +87,7 @@ public class DatabaseAccessor {
     getHomeworkFromDatabase();
   }
 
-  public void updateHomework(HomeworkItem hwk, ArrayList<HomeworkAlarm> oldAlarms) {
+  public synchronized void updateHomework(HomeworkItem hwk, ArrayList<HomeworkAlarm> oldAlarms) {
     homeworkDB.updateHomework(hwk);
 
     for (HomeworkAlarm alarm : oldAlarms) alarmDB.deleteAlarm(alarm.id);
@@ -94,25 +98,29 @@ public class DatabaseAccessor {
     getHomeworkFromDatabase();
   }
 
-  public void updateHomeworkStatus(HomeworkItem hwk) {
+  public synchronized void updateHomeworkStatus(HomeworkItem hwk) {
     homeworkDB.updateHomework(hwk);
   }
 
-  public void deleteHomework(HomeworkItem hwk) {
+  public synchronized void deleteHomework(HomeworkItem hwk) {
     ma.deleteAllAlarms(hwk.alarms, con.getApplicationContext());
     homeworkDB.removeHomework(hwk.id);
     alarmDB.deleteAlarmsForHomework(hwk.id);
     getHomeworkFromDatabase();
   }
 
-  public long addAlarm(HomeworkAlarm alarm) {
+  public synchronized long addAlarm(HomeworkAlarm alarm) {
     return alarmDB.addNewAlarm(alarm);
   }
 
-  public void deleteAlarm(int id, HomeworkItem hwk) {
+  public synchronized void deleteAlarm(int id, HomeworkItem hwk) {
     alarmDB.deleteAlarm(id);
-    for (HomeworkAlarm alarm : hwk.alarms)
+
+    for (Iterator<HomeworkAlarm> it = hwk.alarms.iterator(); it.hasNext(); ) {
+      HomeworkAlarm alarm = it.next();
       if (alarm.id == id)
-        hwk.alarms.remove(alarm);
+        it.remove();
+    }
+
   }
 }

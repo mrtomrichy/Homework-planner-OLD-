@@ -31,7 +31,7 @@ public class ViewActivity extends Activity implements ViewHomeworkFragment.ViewH
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    DatabaseAccessor dbAccessor = new DatabaseAccessor(this);
+    DatabaseAccessor dbAccessor = DatabaseAccessor.getDBAccessor(this);
 
     try {
       Bundle b = getIntent().getExtras();

@@ -38,7 +38,7 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
     SharedPreferences prefs = getSharedPreferences("sortPrefs", MODE_PRIVATE);
     HomeworkItem.SORT_NUM = prefs.getInt("order", 0);
 
-    dbAccessor = new DatabaseAccessor(this);
+    dbAccessor = DatabaseAccessor.getDBAccessor(this);
 
     // Sort methods
     items = getResources().getStringArray(R.array.sort_by_options);

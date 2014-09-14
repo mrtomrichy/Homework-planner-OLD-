@@ -172,7 +172,7 @@ public class HomeworkDatabase {
 
           Cursor c = db.query(AlarmDatabase.DATABASE_ALARM_TABLE, columns, null, null,
               null, null, null);
-          DatabaseAccessor dbAccessor = new DatabaseAccessor(mContext);
+          DatabaseAccessor dbAccessor = DatabaseAccessor.getDBAccessor(mContext);
           AlarmUtils alarmUtils = new AlarmUtils();
 
           while (c.moveToNext()) {

@@ -55,7 +55,7 @@ public class EditActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.homework_input_screen);
 
-    db = new DatabaseAccessor(this);
+    db = DatabaseAccessor.getDBAccessor(this);
     Calendar c = Calendar.getInstance();
     currentDay = c.get(Calendar.DAY_OF_MONTH);
     currentMonth = c.get(Calendar.MONTH);
