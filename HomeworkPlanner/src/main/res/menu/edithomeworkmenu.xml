@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/saveEditButton"
         android:icon="@drawable/ic_action_save"
         android:titleCondensed="SAVE"
-        android:showAsAction="always"
+        app:showAsAction="always"
         android:enabled="true"
         android:title="SAVE"
         android:visible="true"></item>

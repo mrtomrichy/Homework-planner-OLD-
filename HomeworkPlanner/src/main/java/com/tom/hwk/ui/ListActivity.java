@@ -1,13 +1,12 @@
 package com.tom.hwk.ui;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +18,7 @@ import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.utils.HomeworkItem;
 import com.tom.hwk.utils.Utils;
 
-public class ListActivity extends Activity implements ViewHomeworkFragment.ViewHomeworkAttachedListener, HomeworkListFragment.ListAttachedListener {
+public class ListActivity extends ActionBarActivity implements ViewHomeworkFragment.ViewHomeworkAttachedListener, HomeworkListFragment.ListAttachedListener {
 
   private CharSequence items[];
   private HomeworkListFragment listFragment = null;
@@ -33,6 +32,8 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
+
+    getSupportActionBar().setElevation(0);
 
     // How the user wishes to sort the homework
     SharedPreferences prefs = getSharedPreferences("sortPrefs", MODE_PRIVATE);
@@ -58,9 +59,9 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   }
 
   @Override
-  public void onResume(){
+  public void onResume() {
     super.onResume();
-    if(Utils.isDualPane(this) && viewFragment.getHomework() != null) {
+    if (Utils.isDualPane(this) && viewFragment.getHomework() != null) {
       for (HomeworkItem item : dbAccessor.getAllHomework())
         if (item.id == viewFragment.getHomework().id)
           return;
@@ -141,7 +142,7 @@ public class ListActivity extends Activity implements ViewHomeworkFragment.ViewH
   public void onHomeworkSelected(HomeworkItem hwk, boolean userInteracted) {
     if (Utils.isDualPane(this)) {
       viewFragment.updateDetails(hwk);
-    } else if(userInteracted) {
+    } else if (userInteracted) {
       Intent i = new Intent(this, ViewActivity.class);
       Bundle b = new Bundle();
       b.putInt(HomeworkItem.ID_TAG, hwk.id); // add the homework

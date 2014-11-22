@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/reorder"
         android:title="Sort By"
         android:enabled="true"
         android:menuCategory="alternative"
-        android:showAsAction="never"/>
+        app:showAsAction="never"/>
     <item
         android:id="@+id/infoScreen"
         android:title="About"
         android:enabled="true"
         android:menuCategory="alternative"
-        android:showAsAction="never"/>
+        app:showAsAction="never"/>
     <item
         android:id="@+id/addNew"
         android:icon="@drawable/ic_action_new"
@@ -20,7 +21,7 @@
         android:titleCondensed="Add"
         android:enabled="true"
         android:visible="true"
-        android:showAsAction="always"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/editButton"
         android:icon="@drawable/ic_action_edit"
@@ -28,11 +29,11 @@
         android:titleCondensed="Edit"
         android:enabled="true"
         android:visible="true"
-        android:showAsAction="always"/>
+        app:showAsAction="always"/>
     <item
         android:id="@+id/settingsScreen"
         android:title="Manage Subjects"
         android:enabled="true"
         android:menuCategory="alternative"
-        android:showAsAction="never"/>
+        app:showAsAction="never"/>
 </menu>

@@ -1,10 +1,9 @@
 package com.tom.hwk.ui;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,13 +12,14 @@ import android.widget.TextView;
 
 import com.tom.hwk.R;
 
-public class InfoActivity extends Activity {
+public class InfoActivity extends ActionBarActivity {
 
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.information);
 
-    ActionBar ab = getActionBar();
+    android.support.v7.app.ActionBar ab = getSupportActionBar();
+    ab.setElevation(0);
     ab.setDisplayHomeAsUpEnabled(true);
     ab.setTitle("Information");
 

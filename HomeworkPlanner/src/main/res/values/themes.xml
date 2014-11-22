@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- ActionBar styles -->
-    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:titleTextStyle">@style/MyActionBar.TitleText</item>
-        <item name="android:subtitleTextStyle">@style/MyActionBar.SubtitleText</item>
-        <item name="android:background">#33b5e5</item>
-        <item name="android:icon">@drawable/home_up</item>
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/cyan</item>
+        <item name="colorPrimaryDark">@color/cyan_dark</item>
+        <item name="colorAccent">@color/grey</item>
+        <item name="android:actionBarStyle">@style/ActionBarTheme</item>
+        <item name="android:listViewStyle">@android:style/Widget.ListView.White</item>
+    </style>
+
+    <style name="ActionBarTheme" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="background">@color/cyan</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
     </style>
 
     <!-- ActionBar title text -->
-    <style name="MyActionBar.TitleText" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">#FFFFFF</item>
+    <style name="MyActionBarTitleText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <!-- ActionBar title text -->
-    <style name="MyActionBar.SubtitleText" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Subtitle">
-        <item name="android:textColor">#EEE</item>
+    <!-- ActionBar tabs text styles -->
+    <style name="MyActionBarTabText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
     <style name="ListStyle" parent="@android:style/Widget.Holo.Light.ListView">

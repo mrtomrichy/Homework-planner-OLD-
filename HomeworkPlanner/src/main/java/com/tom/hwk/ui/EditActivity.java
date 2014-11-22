@@ -1,12 +1,11 @@
 package com.tom.hwk.ui;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,7 +33,7 @@ import com.tom.hwk.utils.colorpicker.Utils;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class EditActivity extends Activity {
+public class EditActivity extends ActionBarActivity {
 
   private TextView editTitle, editNotes, editDate;
   AutoCompleteTextView editSubject;
@@ -83,7 +82,8 @@ public class EditActivity extends Activity {
       alarms.add(new HomeworkAlarm(-1, currentDay, currentMonth, currentYear, 0, 0, working_homework.id));
     }
 
-    ActionBar ab = getActionBar();
+    android.support.v7.app.ActionBar ab = getSupportActionBar();
+    ab.setElevation(0);
     ab.setDisplayHomeAsUpEnabled(true);
     if (edit) {
       ab.setTitle("Edit Homework");

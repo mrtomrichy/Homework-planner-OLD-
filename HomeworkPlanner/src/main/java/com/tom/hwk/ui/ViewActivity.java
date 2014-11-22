@@ -1,17 +1,16 @@
 package com.tom.hwk.ui;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.tom.hwk.R;
-import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.ui.fragments.ViewHomeworkFragment;
+import com.tom.hwk.utils.DatabaseAccessor;
 import com.tom.hwk.utils.HomeworkItem;
 import com.tom.hwk.utils.Utils;
 
@@ -20,7 +19,7 @@ import com.tom.hwk.utils.Utils;
  * An Activity which shows a homework's details. If we meet the dual pane
  * criteria, we end the activity and show the details with the list.
  */
-public class ViewActivity extends Activity implements ViewHomeworkFragment.ViewHomeworkAttachedListener {
+public class ViewActivity extends ActionBarActivity implements ViewHomeworkFragment.ViewHomeworkAttachedListener {
   private HomeworkItem hwk;
   private ViewHomeworkFragment viewHomeworkFragment;
 
@@ -47,7 +46,8 @@ public class ViewActivity extends Activity implements ViewHomeworkFragment.ViewH
     // If we get here, everything is fine. Build UI and show the homework.
     setContentView(R.layout.main_view_hwk);
 
-    ActionBar ab = getActionBar();
+    android.support.v7.app.ActionBar ab = getSupportActionBar();
+    ab.setElevation(0);
     ab.setDisplayHomeAsUpEnabled(true);
     ab.setTitle(hwk.subject);
     String complete = hwk.complete ? "Complete" : "Incomplete";

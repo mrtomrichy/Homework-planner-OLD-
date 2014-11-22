@@ -1,13 +1,12 @@
 package com.tom.hwk.ui;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +28,7 @@ import java.util.List;
 /**
  * Created by tom on 28/08/2014.
  */
-public class PreferencesActivity extends Activity {
+public class PreferencesActivity extends ActionBarActivity {
 
   DatabaseAccessor dbAccessor;
   ListView subjectList;
@@ -43,7 +42,8 @@ public class PreferencesActivity extends Activity {
 
     dbAccessor = DatabaseAccessor.getDBAccessor(this);
 
-    ActionBar ab = getActionBar();
+    android.support.v7.app.ActionBar ab = getSupportActionBar();
+    ab.setElevation(0);
     ab.setDisplayHomeAsUpEnabled(true);
     ab.setTitle("Manage Subjects");
     ab.setSubtitle("Add or delete subjects");
