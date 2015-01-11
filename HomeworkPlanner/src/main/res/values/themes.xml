@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/grey</item>
         <item name="android:actionBarStyle">@style/ActionBarTheme</item>
         <item name="android:listViewStyle">@android:style/Widget.ListView.White</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="ActionBarTheme" parent="@style/Widget.AppCompat.ActionBar">
