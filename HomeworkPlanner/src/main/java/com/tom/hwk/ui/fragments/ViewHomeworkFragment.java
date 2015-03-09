@@ -46,16 +46,7 @@ public class ViewHomeworkFragment extends Fragment {
   private ScrollView details;
   private RelativeLayout none;
 
-  private static ViewHomeworkFragment sharedInstance = null;
-
   private ViewHomeworkAttachedListener listener;
-
-  public static ViewHomeworkFragment getViewHomeworkFragment()
-  {
-    if(sharedInstance == null)
-      sharedInstance = new ViewHomeworkFragment();
-    return sharedInstance;
-  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {

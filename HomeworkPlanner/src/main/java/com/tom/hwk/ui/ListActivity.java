@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,8 +47,8 @@ public class ListActivity extends ActionBarActivity implements ViewHomeworkFragm
 
     FragmentManager fragmentManager = getFragmentManager();
 
-    listFragment = HomeworkListFragment.getHomeworkListFragment();
-    viewFragment = ViewHomeworkFragment.getViewHomeworkFragment();
+    listFragment = listFragment == null ? new HomeworkListFragment() : listFragment;
+    viewFragment = viewFragment == null ? new ViewHomeworkFragment() : viewFragment;
 
     fragmentManager.beginTransaction().replace(R.id.homework_list_content, listFragment).commit();
 
@@ -156,6 +157,7 @@ public class ListActivity extends ActionBarActivity implements ViewHomeworkFragm
   public void onViewFragmentResumed() {
     if (Utils.isDualPane(this))
       if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(HomeworkItem.ID_TAG)) {
+        Log.d("This is sparta","Recycled");
         listFragment.setSelectedHomework(dbAccessor.getHomeworkWithId(getIntent().getExtras().getInt(HomeworkItem.ID_TAG)));
         getIntent().removeExtra(HomeworkItem.ID_TAG);
       } else {

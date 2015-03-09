@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,14 +33,7 @@ public class HomeworkListFragment extends Fragment {
 
   private DatabaseAccessor databaseAccessor;
 
-  private HomeworkItem lastSelected = null;
-
-  private static HomeworkListFragment sharedInstance = null;
-
-  public static HomeworkListFragment getHomeworkListFragment() {
-    if (sharedInstance == null) sharedInstance = new HomeworkListFragment();
-    return sharedInstance;
-  }
+  private HomeworkItem lastSelected;
 
   private ListAttachedListener listener;
 
@@ -163,17 +157,20 @@ public class HomeworkListFragment extends Fragment {
     super.onResume();
 
     hwks = databaseAccessor.getAllHomework();
+
     if (lastSelected != null) {
-      for (HomeworkItem h : hwks)
-        if (h.id == lastSelected.id)
+      Log.d("Last", "Last selected is: " + lastSelected.title);
+      for (HomeworkItem h : hwks) {
+        if (h.id == lastSelected.id) {
           selectHomework(h, false);
-    }else{
-      if(hwks.size() > 0)
-        selectHomework(hwks.get(0), false);
+          break;
+        }
+      }
+    } else {
+      if(hwks.size() > 0) selectHomework(hwks.get(0), false);
     }
+
     arrayAdapter.notifyDataSetChanged();
-
-
   }
 
   private HomeworkItem removeHomeworkFromList(int positionDeleted) {
@@ -206,6 +203,7 @@ public class HomeworkListFragment extends Fragment {
   }
 
   public HomeworkItem getSelectedHomework() {
+    Log.d("TAG", lastSelected.title);
     return lastSelected;
   }
 
