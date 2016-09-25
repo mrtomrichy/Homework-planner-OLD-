@@ -1,11 +1,12 @@
 package com.tom.hwk.ui;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,26 +25,25 @@ import android.widget.Toast;
 import com.tom.hwk.R;
 import com.tom.hwk.adapters.AlarmAdapter;
 import com.tom.hwk.utils.DatabaseAccessor;
-import com.tom.hwk.utils.HomeworkAlarm;
-import com.tom.hwk.utils.HomeworkItem;
+import com.tom.hwk.models.HomeworkAlarm;
+import com.tom.hwk.models.HomeworkItem;
 import com.tom.hwk.utils.colorpicker.ColorPickerDialog;
 import com.tom.hwk.utils.colorpicker.ColorPickerSwatch;
 import com.tom.hwk.utils.colorpicker.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public class EditActivity extends ActionBarActivity {
+public class EditActivity extends AppCompatActivity {
 
-  private TextView editTitle, editNotes, editDate;
-  AutoCompleteTextView editSubject;
-  private HomeworkItem working_homework;
-  private AlarmAdapter adapter;
-  private ArrayList<HomeworkAlarm> alarms;
-  private ImageButton color_button;
+  private TextView mTitleInput, mNotesInput, mDateInput;
+  private AutoCompleteTextView mSubjectInput;
+  private HomeworkItem mCurrentHomework;
+  private AlarmAdapter mAlarmAdapter;
+  private ImageButton mColorButton;
 
-  private int currentDay, currentMonth, currentYear;
-  private String[] monthNames = new String[]{"Jan", "Feb", "Mar", "Apr", "May",
+  private static final String[] monthNames = new String[]{"Jan", "Feb", "Mar", "Apr", "May",
       "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"};
 
   private DatabaseAccessor db;
@@ -52,38 +52,32 @@ public class EditActivity extends ActionBarActivity {
 
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.homework_input_screen);
+    setContentView(R.layout.activity_edit);
 
     db = DatabaseAccessor.getDBAccessor(this);
-    Calendar c = Calendar.getInstance();
-    currentDay = c.get(Calendar.DAY_OF_MONTH);
-    currentMonth = c.get(Calendar.MONTH);
-    currentYear = c.get(Calendar.YEAR);
-    c.set(currentYear, currentMonth, currentDay, 0, 0);
 
     Bundle b = getIntent().getExtras();
 
+    // Get the initial data from the bundle - if we're editing or not
     if (b != null && b.containsKey(HomeworkItem.ID_TAG)) {
-      working_homework = db.getHomeworkWithId(b.getInt(HomeworkItem.ID_TAG));
-      alarms = (ArrayList<HomeworkAlarm>) working_homework.alarms.clone();
+      mCurrentHomework = db.getHomeworkWithId(b.getInt(HomeworkItem.ID_TAG));
       edit = true;
     } else {
       edit = false;
-      alarms = new ArrayList<HomeworkAlarm>();
 
-      Calendar init = Calendar.getInstance();
-      init.set(currentYear, currentMonth, currentDay);
-      init.roll(Calendar.DAY_OF_YEAR, 1);                // Initial date set for tomorrow (by request)
+      Calendar initialHomeworkDate = Calendar.getInstance();
+      initialHomeworkDate.roll(Calendar.DAY_OF_YEAR, 1);                // Initial date set for tomorrow (by request)
 
-      working_homework = new HomeworkItem(-1, "", "", init.get(Calendar.DAY_OF_MONTH),
-          init.get(Calendar.MONTH), init.get(Calendar.YEAR),
-          "", Color.parseColor("#33b5e5"), false, alarms);
+      List<HomeworkAlarm> newAlarms = new ArrayList<>();
 
-      alarms.add(new HomeworkAlarm(-1, currentDay, currentMonth, currentYear, 0, 0, working_homework.id));
+
+      mCurrentHomework = new HomeworkItem(-1, "", "", initialHomeworkDate.get(Calendar.DAY_OF_MONTH),
+          initialHomeworkDate.get(Calendar.MONTH), initialHomeworkDate.get(Calendar.YEAR),
+          "", Color.parseColor("#33b5e5"), false, newAlarms);
     }
 
+    // Set the action bar text
     android.support.v7.app.ActionBar ab = getSupportActionBar();
-    ab.setElevation(0);
     ab.setDisplayHomeAsUpEnabled(true);
     if (edit) {
       ab.setTitle("Edit Homework");
@@ -93,60 +87,66 @@ public class EditActivity extends ActionBarActivity {
       ab.setSubtitle("Add a new homework");
     }
 
-    ListView homework_edit_list = (ListView) findViewById(R.id.homework_edit_list);
-    homework_edit_list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+    // Use a list for the entire screen due to the fact we need to add
+    // alarms to the bottom, and we want the entire screen to scroll
+    ListView homeworkEditList = (ListView) findViewById(R.id.homework_edit_list);
+    homeworkEditList.setChoiceMode(ListView.CHOICE_MODE_NONE);
+
+    // Ignore warning of null parent as it is for list
+    @SuppressLint("InflateParams")
     View header = getLayoutInflater().inflate(R.layout.homework_input_main,
         null, false);
+    @SuppressLint("InflateParams")
     View footer = getLayoutInflater().inflate(R.layout.homework_input_alarms,
         null, false);
-    homework_edit_list.addHeaderView(header);
-    homework_edit_list.addFooterView(footer);
-    adapter = new AlarmAdapter(this, alarms); // add adapter
-    homework_edit_list.setAdapter(adapter);
-    homework_edit_list.setClickable(false);
 
+    homeworkEditList.addHeaderView(header);
+    homeworkEditList.addFooterView(footer);
+    homeworkEditList.setClickable(false);
 
-    editTitle = (TextView) findViewById(R.id.newTitle);
-    editSubject = (AutoCompleteTextView) findViewById(R.id.newSubject);
-    editSubject.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, db.getAllSubjects()));
-    editNotes = (TextView) findViewById(R.id.newNotes);
-    editDate = (TextView) findViewById(R.id.viewDate);
-    editDate.setOnClickListener(new OnClickListener() {
+    mAlarmAdapter = new AlarmAdapter(this, mCurrentHomework.alarms); // add mAlarmAdapter
+    homeworkEditList.setAdapter(mAlarmAdapter);
+
+    // Get all the views for outputting data
+    mTitleInput = (TextView) findViewById(R.id.newTitle);
+    mSubjectInput = (AutoCompleteTextView) findViewById(R.id.newSubject);
+    mSubjectInput.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, db.getSubjects()));
+    mNotesInput = (TextView) findViewById(R.id.newNotes);
+    mDateInput = (TextView) findViewById(R.id.viewDate);
+    mDateInput.setOnClickListener(new OnClickListener() {
       public void onClick(View v) {
         Dialog date_dialog = new DatePickerDialog(EditActivity.this, new DatePickerDialog.OnDateSetListener() {
           @Override
           public void onDateSet(DatePicker view, int thisYear, int monthOfYear, int dayOfMonth) {
-            working_homework.year = thisYear;
-            working_homework.month = monthOfYear;
-            working_homework.day = dayOfMonth;
-            updateDisplay(editDate, working_homework.day, working_homework.month, working_homework.year);
+            mCurrentHomework.year = thisYear;
+            mCurrentHomework.month = monthOfYear;
+            mCurrentHomework.day = dayOfMonth;
+            updateDateOutput(mCurrentHomework.day, mCurrentHomework.month, mCurrentHomework.year);
           }
-        }, working_homework.year, working_homework.month,
-            working_homework.day
+        }, mCurrentHomework.year, mCurrentHomework.month,
+            mCurrentHomework.day
         );
         date_dialog.show();
       }
     });
 
-
-    color_button = (ImageButton) findViewById(R.id.color_picker_button);
-    final int[] mColor = Utils.ColorUtils.colorChoice(this);
-    color_button.setOnClickListener(new OnClickListener() {
+    mColorButton = (ImageButton) findViewById(R.id.color_picker_button);
+    mColorButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View view) {
-        ColorPickerDialog colorcalendar = ColorPickerDialog.newInstance(
+        ColorPickerDialog colorPicker = ColorPickerDialog.newInstance(
             R.string.color_picker_default_title,
-            mColor, 0, 5,
+            Utils.ColorUtils.colorChoice(EditActivity.this), 0, 5,
             Utils.isTablet(EditActivity.this) ? ColorPickerDialog.SIZE_LARGE : ColorPickerDialog.SIZE_SMALL);
 
-        colorcalendar.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
+        colorPicker.setOnColorSelectedListener(new ColorPickerSwatch.OnColorSelectedListener() {
           @Override
           public void onColorSelected(int color) {
-            EditActivity.this.working_homework.color = color;
-            color_button.setBackgroundColor(color);
+            EditActivity.this.mCurrentHomework.color = color;
+            mColorButton.setBackgroundColor(color);
           }
         });
-        colorcalendar.show(getFragmentManager(), "colors");
+        colorPicker.show(getFragmentManager(), "colors");
       }
     });
 
@@ -154,27 +154,26 @@ public class EditActivity extends ActionBarActivity {
     Button addAlarm = (Button) findViewById(R.id.newAddAlarm);
     addAlarm.setOnClickListener(new OnClickListener() {
       public void onClick(View v) {
-
-        alarms.add(new HomeworkAlarm(-1, currentDay, currentMonth,
-            currentYear, 0, 0, working_homework.id));
-        adapter.notifyDataSetChanged();
+        Calendar today = Calendar.getInstance();
+        mCurrentHomework.alarms.add(new HomeworkAlarm(-1, today.get(Calendar.DAY_OF_MONTH), today.get(Calendar.MONTH),
+            today.get(Calendar.YEAR), 0, 0, mCurrentHomework.id));
+        mAlarmAdapter.notifyDataSetChanged();
       }
     });
 
     // Display all existing homework data
-    editTitle.setText(working_homework.title);
-    editSubject.setText(working_homework.subject);
-    editNotes.setText(working_homework.notes);
+    mTitleInput.setText(mCurrentHomework.title);
+    mSubjectInput.setText(mCurrentHomework.subject);
+    mNotesInput.setText(mCurrentHomework.notes);
 
+    mColorButton.setBackgroundColor(mCurrentHomework.color);
 
-    color_button.setBackgroundColor(working_homework.color);
-
-    updateDisplay(editDate, working_homework.day, working_homework.month, working_homework.year);
+    updateDateOutput(mCurrentHomework.day, mCurrentHomework.month, mCurrentHomework.year);
   }
 
-  public void updateDisplay(TextView dateView, int thisDay, int thisMonth,
-                            int thisYear) {
-    dateView.setText(thisDay + " / " + monthNames[thisMonth] + " / " + ""
+  public void updateDateOutput(int thisDay, int thisMonth,
+                               int thisYear) {
+    mDateInput.setText(thisDay + " / " + monthNames[thisMonth] + " / " + ""
         + thisYear);
     Calendar due = Calendar.getInstance();
     due.set(thisYear, thisMonth, thisDay);
@@ -182,7 +181,7 @@ public class EditActivity extends ActionBarActivity {
   }
 
   public void checkReminders(Calendar due) {
-    for (HomeworkAlarm thisAlarm : alarms) {
+    for (HomeworkAlarm thisAlarm : mCurrentHomework.alarms) {
       Calendar alarm_cal = Calendar.getInstance();
       alarm_cal.set(thisAlarm.year, thisAlarm.month, thisAlarm.day);
       if (alarm_cal.after(due)) {
@@ -191,49 +190,38 @@ public class EditActivity extends ActionBarActivity {
         thisAlarm.year = due.get(Calendar.YEAR);
       }
     }
-    adapter.notifyDataSetChanged();
+    mAlarmAdapter.notifyDataSetChanged();
   }
 
   public void editEntry() {
-    boolean worked = true;
+    boolean success = true;
 
-    String checktitle = editTitle.getText().toString();
-    String checksubject = editSubject.getText().toString();
-    String checknotes = editNotes.getText().toString();
+    mCurrentHomework.title = mTitleInput.getText().toString();
+    mCurrentHomework.subject = mSubjectInput.getText().toString();
+    mCurrentHomework.notes = mNotesInput.getText().toString();
 
-    if (!checktitle.equals("") && !checksubject.equals("")) {
+    if (!mCurrentHomework.title.equals("") && !mCurrentHomework.subject.equals("")) {
       try {
-        working_homework.title = checktitle;
-        working_homework.subject = checksubject;
-        working_homework.notes = checknotes;
-        ArrayList<HomeworkAlarm> oldAlarms = (ArrayList<HomeworkAlarm>) working_homework.alarms.clone();
-        working_homework.alarms = alarms;
-
-
         if (edit) {
-          db.updateHomework(working_homework, oldAlarms);
+          db.updateHomework(mCurrentHomework);
         } else {
-          db.saveHomework(working_homework);
+          db.addHomework(mCurrentHomework);
         }
 
       } catch (Exception e) {
         Log.e("SAVING ERROR", e.getMessage());
         e.printStackTrace();
-        worked = false;
+        success = false;
       } finally {
-        if (worked) {
+        if (success) {
           Toast.makeText(this, "Changes saved!", Toast.LENGTH_LONG).show();
-          backToView(true);
+          back(true);
         } else {
           Toast.makeText(this, "Something went wrong, please try again!", Toast.LENGTH_LONG).show();
         }
-
       }
     } else {
-
-      String errors = "This homework needs a title and subject";
-
-      Toast.makeText(this, errors, Toast.LENGTH_LONG).show();
+      Toast.makeText(this, "This homework needs a title and subject", Toast.LENGTH_LONG).show();
     }
 
   }
@@ -241,17 +229,16 @@ public class EditActivity extends ActionBarActivity {
 
   @Override
   public void onBackPressed() {
-    if (edit) backToView(true);
-    else backToView(false);
+    back(edit);
   }
 
-  public void backToView(boolean success) {
+  public void back(boolean forwardHomework) {
     Intent i;
     if (edit) i = new Intent(this, ViewActivity.class);
     else i = new Intent(this, ListActivity.class);
-    if (success) {
+    if (forwardHomework) {
       Bundle b = new Bundle();
-      b.putInt(HomeworkItem.ID_TAG, working_homework.id);
+      b.putInt(HomeworkItem.ID_TAG, mCurrentHomework.id);
       i.putExtras(b);
     }
     startActivity(i);
@@ -272,8 +259,7 @@ public class EditActivity extends ActionBarActivity {
         editEntry();
         return true;
       case android.R.id.home:
-        if (edit) backToView(true);
-        else backToView(false);
+        back(edit);
         return true;
       default:
         return super.onOptionsItemSelected(item);

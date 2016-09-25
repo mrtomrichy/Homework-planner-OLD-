@@ -9,28 +9,28 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.tom.hwk.utils.AlarmUtils;
 import com.tom.hwk.utils.DatabaseAccessor;
-import com.tom.hwk.utils.HomeworkAlarm;
-import com.tom.hwk.utils.HomeworkItem;
+import com.tom.hwk.models.HomeworkAlarm;
+import com.tom.hwk.models.HomeworkItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class HomeworkDatabase {
 
-  public static final String KEY_ROW_ID = "_id";
-  public static final String KEY_TITLE = "homework_title";
-  public static final String KEY_SUBJECT = "homework_subject";
-  public static final String KEY_DUE_DAY = "homework_due_day";
-  public static final String KEY_DUE_MONTH = "homework_due_month";
-  public static final String KEY_DUE_YEAR = "homework_due_year";
-  public static final String KEY_NOTES = "homework_notes";
-  public static final String KEY_COLOR_CODE = "homework_color_code";
-  public static final String KEY_COMPLETE = "homework_complete";
+  private static final String KEY_ROW_ID = "_id";
+  private static final String KEY_TITLE = "homework_title";
+  private static final String KEY_SUBJECT = "homework_subject";
+  private static final String KEY_DUE_DAY = "homework_due_day";
+  private static final String KEY_DUE_MONTH = "homework_due_month";
+  private static final String KEY_DUE_YEAR = "homework_due_year";
+  private static final String KEY_NOTES = "homework_notes";
+  private static final String KEY_COLOR_CODE = "homework_color_code";
+  private static final String KEY_COMPLETE = "homework_complete";
 
-  public static final String DATABASE_NAME = "homeworkDB";
-  public static final String DATABASE_HOMEWORK_TABLE = "homeworks";
+  private static final String DATABASE_NAME = "homeworkDB";
+  private static final String DATABASE_HOMEWORK_TABLE = "homeworks";
 
-  public static final int DATABASE_VERSION = 5;
+  private static final int DATABASE_VERSION = 5;
   private final Context mContext;
   private HomeworkDB mHelper;
   private SQLiteDatabase mDatabase;
@@ -48,7 +48,7 @@ public class HomeworkDatabase {
   }
 
   // method to close the database
-  public void close() {
+  private void close() {
     mHelper.close();
   }
 
@@ -173,7 +173,6 @@ public class HomeworkDatabase {
           Cursor c = db.query(AlarmDatabase.DATABASE_ALARM_TABLE, columns, null, null,
               null, null, null);
           DatabaseAccessor dbAccessor = DatabaseAccessor.getDBAccessor(mContext);
-          AlarmUtils alarmUtils = new AlarmUtils();
 
           while (c.moveToNext()) {
             HomeworkAlarm alarm = new HomeworkAlarm(c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_ID)),
@@ -184,12 +183,14 @@ public class HomeworkDatabase {
                 c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_MINUTE)),
                 c.getInt(c.getColumnIndex(AlarmDatabase.KEY_ALARM_HOMEWORK_ID)));
 
-            alarmUtils.deleteAlarm(alarm, mContext);
+            AlarmUtils.deleteAlarm(alarm, mContext);
 
             alarm.id = (int) dbAccessor.addAlarm(alarm);
 
-            alarmUtils.createAlarm(alarm, mContext);
+            AlarmUtils.createAlarm(alarm, mContext);
           }
+
+          c.close();
       }
     }
 

@@ -5,6 +5,8 @@ import android.content.Context;
 import com.tom.hwk.db.AlarmDatabase;
 import com.tom.hwk.db.HomeworkDatabase;
 import com.tom.hwk.db.SubjectDatabase;
+import com.tom.hwk.models.HomeworkAlarm;
+import com.tom.hwk.models.HomeworkItem;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,16 +22,14 @@ public class DatabaseAccessor {
   private static HomeworkDatabase homeworkDB;
   private static AlarmDatabase alarmDB;
   private static SubjectDatabase subjectDB;
-  private static AlarmUtils ma;
 
-  private static List<HomeworkItem> homeworks = null;
+  private static List<HomeworkItem> homework = null;
 
   private DatabaseAccessor(Context context) {
     con = context;
     homeworkDB = new HomeworkDatabase(con);
     alarmDB = new AlarmDatabase(con);
     subjectDB = new SubjectDatabase(con);
-    ma = new AlarmUtils();
   }
 
   public static DatabaseAccessor getDBAccessor(Context c)
@@ -39,61 +39,54 @@ public class DatabaseAccessor {
     return sSharedInstance;
   }
 
-  public synchronized List<HomeworkItem> getAllHomework() {
-    if (homeworks == null)
-      getHomeworkFromDatabase();
-
-    return homeworks;
-  }
-
   private synchronized void getHomeworkFromDatabase() {
-    if (homeworks == null)
-      homeworks = new ArrayList<HomeworkItem>();
-    homeworks.clear();
+    if (homework == null)
+      homework = new ArrayList<>();
+    homework.clear();
 
     for (HomeworkItem item : homeworkDB.getAllHomeworks())
-      homeworks.add(item);
+      homework.add(item);
   }
 
-  public synchronized void addSubject(String subject) {
-    subjectDB.addSubject(subject);
-  }
+  public synchronized List<HomeworkItem> getHomework() {
+    if (homework == null)
+      getHomeworkFromDatabase();
 
-  public synchronized List<String> getAllSubjects() {
-    List<String> subjects = subjectDB.getSubjects();
-
-    return subjects;
-  }
-
-  public synchronized void deleteSubject(String subject) {
-    subjectDB.deleteSubject(subject);
+    return homework;
   }
 
   public synchronized HomeworkItem getHomeworkWithId(int id) {
-    for (HomeworkItem i : getAllHomework())
+    for (HomeworkItem i : getHomework())
       if (i.id == id) return i;
 
     return null;
   }
 
-  public synchronized void saveHomework(HomeworkItem hwk) {
+  public synchronized void addHomework(HomeworkItem hwk) {
     hwk.id = (int) homeworkDB.addNewHomework(hwk);
     for (HomeworkAlarm alarm : hwk.alarms) {
       alarm.homeworkId = hwk.id;
       alarm.id = (int) alarmDB.addNewAlarm(alarm);
     }
-    ma.createAlarmsFromList(hwk.alarms, con.getApplicationContext());
+    AlarmUtils.createAlarmsFromList(hwk.alarms, con.getApplicationContext());
     subjectDB.addSubject(hwk.subject);
     getHomeworkFromDatabase();
   }
 
-  public synchronized void updateHomework(HomeworkItem hwk, ArrayList<HomeworkAlarm> oldAlarms) {
+  public synchronized void updateHomework(HomeworkItem hwk) {
+    List<HomeworkAlarm> oldAlarms = alarmDB.getAlarmsForHomework(hwk.id);
     homeworkDB.updateHomework(hwk);
 
-    for (HomeworkAlarm alarm : oldAlarms) alarmDB.deleteAlarm(alarm.id);
-    ma.deleteAllAlarms(oldAlarms, con.getApplicationContext());
-    for (HomeworkAlarm alarm : hwk.alarms) alarm.id = (int) alarmDB.addNewAlarm(alarm);
-    ma.createAlarmsFromList(hwk.alarms, con.getApplicationContext());
+    for (HomeworkAlarm alarm : oldAlarms) {
+      alarmDB.deleteAlarm(alarm.id);
+      AlarmUtils.deleteAlarm(alarm, con.getApplicationContext());
+    }
+
+    for (HomeworkAlarm alarm : hwk.alarms) {
+      alarm.id = (int) alarmDB.addNewAlarm(alarm);
+      AlarmUtils.createAlarm(alarm, con.getApplicationContext());
+    }
+
     subjectDB.addSubject(hwk.subject);
     getHomeworkFromDatabase();
   }
@@ -103,9 +96,9 @@ public class DatabaseAccessor {
   }
 
   public synchronized void deleteHomework(HomeworkItem hwk) {
-    ma.deleteAllAlarms(hwk.alarms, con.getApplicationContext());
-    homeworkDB.removeHomework(hwk.id);
+    AlarmUtils.deleteAlarms(hwk.alarms, con.getApplicationContext());
     alarmDB.deleteAlarmsForHomework(hwk.id);
+    homeworkDB.removeHomework(hwk.id);
     getHomeworkFromDatabase();
   }
 
@@ -121,6 +114,17 @@ public class DatabaseAccessor {
       if (alarm.id == id)
         it.remove();
     }
+  }
 
+  public synchronized List<String> getSubjects() {
+    return subjectDB.getSubjects();
+  }
+
+  public synchronized void addSubject(String subject) {
+    subjectDB.addSubject(subject);
+  }
+
+  public synchronized void deleteSubject(String subject) {
+    subjectDB.deleteSubject(subject);
   }
 }

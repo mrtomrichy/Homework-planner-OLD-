@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/cyan</item>
         <item name="colorPrimaryDark">@color/cyan_dark</item>
         <item name="colorAccent">@color/grey</item>
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:colorBackground">@android:color/white</item>
         <item name="android:actionBarStyle">@style/ActionBarTheme</item>
         <item name="android:listViewStyle">@android:style/Widget.ListView.White</item>
         <item name="android:textColor">@android:color/black</item>
@@ -14,6 +16,7 @@
         <item name="background">@color/cyan</item>
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
+        <item name="elevation">6dp</item>
     </style>
 
     <!-- ActionBar title text -->
@@ -24,11 +27,6 @@
     <!-- ActionBar tabs text styles -->
     <style name="MyActionBarTabText" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
         <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="ListStyle" parent="@android:style/Widget.Holo.Light.ListView">
-        <item name="android:divider">@color/div</item>
-        <item name="android:dividerHeight">1px</item>
     </style>
 
 </resources>

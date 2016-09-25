@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:id="@+id/drawer_layout"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- The main content view -->
+    <fragment
+        android:id="@+id/item_list"
+        android:name="com.tom.hwk.ui.fragments.ListHomeworkFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="8"
+        tools:context=".ui.ListActivity"
+        tools:layout="@layout/fragment_list"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="fill_parent"
+        android:background="@android:color/darker_gray"/>
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="5">
+
+        <fragment android:id="@+id/view_homework_content"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  tools:layout="@layout/fragment_view"
+                  android:name="com.tom.hwk.ui.fragments.ViewHomeworkFragment" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            app:layout_anchor="@id/view_homework_content"
+            app:layout_anchorGravity="bottom|right|end"
+            android:backgroundTint="@color/cyan"
+            android:src="@drawable/ic_action_new"
+            android:id="@+id/add_new_homework_fab"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</LinearLayout>

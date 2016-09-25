@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Created by tom on 28/08/2014.
  */
-public class PreferencesActivity extends ActionBarActivity {
+public class PreferencesActivity extends AppCompatActivity {
 
   DatabaseAccessor dbAccessor;
   ListView subjectList;
@@ -43,12 +43,11 @@ public class PreferencesActivity extends ActionBarActivity {
     dbAccessor = DatabaseAccessor.getDBAccessor(this);
 
     android.support.v7.app.ActionBar ab = getSupportActionBar();
-    ab.setElevation(0);
     ab.setDisplayHomeAsUpEnabled(true);
     ab.setTitle("Manage Subjects");
     ab.setSubtitle("Add or delete subjects");
 
-    subjects = dbAccessor.getAllSubjects();
+    subjects = dbAccessor.getSubjects();
 
     subjectList = (ListView) findViewById(R.id.preference_listview);
     subjectList.addFooterView(new View(this));
@@ -130,7 +129,7 @@ public class PreferencesActivity extends ActionBarActivity {
       TextView subject;
       ImageView delete;
       if (convertView == null) {
-        convertView = LayoutInflater.from(context).inflate(R.layout.subject_row, null);
+        convertView = LayoutInflater.from(context).inflate(R.layout.subject_list_cell, null);
         subject = (TextView) convertView.findViewById(R.id.preference_subject_name_textview);
         delete = (ImageView) convertView.findViewById(R.id.preference_delete_icon);
         convertView.setTag(new SubjectPrefHolder(subject, delete));

@@ -3,27 +3,28 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.android.tools.build:gradle:2.2.0'
     }
 }
 apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
+    jcenter();
 }
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21"
+    compileSdkVersion 24
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 21
+        minSdkVersion 19
+        targetSdkVersion 24
     }
 }
 
 dependencies {
-    compile 'de.timroes.android:EnhancedListView:0.3.0@aar'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.android.support:appcompat-v7:21.0.+'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support:design:24.2.1'
 }

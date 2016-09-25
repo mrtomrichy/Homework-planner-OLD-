@@ -8,10 +8,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 
 import com.tom.hwk.R;
-import com.tom.hwk.db.AlarmDatabase;
+import com.tom.hwk.models.HomeworkAlarm;
+import com.tom.hwk.models.HomeworkItem;
 import com.tom.hwk.ui.ViewActivity;
 
 public class AlarmReceiver extends BroadcastReceiver {

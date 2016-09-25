@@ -13,10 +13,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.tom.hwk.R;
-import com.tom.hwk.utils.HomeworkAlarm;
+import com.tom.hwk.models.HomeworkAlarm;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by tom on 25/08/2014.
@@ -24,7 +23,7 @@ import java.util.Calendar;
 public class AlarmAdapter extends ArrayAdapter<HomeworkAlarm> { // adapter for list
   private Context mContext;
 
-  public AlarmAdapter(Context context, ArrayList<HomeworkAlarm> list) {
+  public AlarmAdapter(Context context, List<HomeworkAlarm> list) {
     super(context, 0, list);
     this.mContext = context;
   }
@@ -35,7 +34,7 @@ public class AlarmAdapter extends ArrayAdapter<HomeworkAlarm> { // adapter for l
     ImageButton deleteAlarm;
 
     if (convertView == null) {
-      convertView = LayoutInflater.from(mContext).inflate(R.layout.alarmlistitem, null);
+      convertView = LayoutInflater.from(mContext).inflate(R.layout.alarm_list_cell, null);
       date = (TextView) convertView.findViewById(R.id.dateAlarm);
       time = (TextView) convertView.findViewById(R.id.timeAlarm);
       deleteAlarm = (ImageButton) convertView.findViewById(R.id.deleteAlarmButton);

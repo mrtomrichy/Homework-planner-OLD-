@@ -2,55 +2,78 @@ package com.tom.hwk.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tom.hwk.R;
-import com.tom.hwk.utils.HomeworkItem;
-import com.tom.hwk.utils.DatabaseAccessor;
-import com.tom.hwk.db.HomeworkDatabase;
+import com.tom.hwk.models.HomeworkItem;
 
 import java.util.List;
 
 /**
  * Created by Tom on 30/12/2013.
  */
-public class HomeworkListAdapter extends ArrayAdapter<HomeworkItem> { // adapter for list
+public class HomeworkListAdapter extends RecyclerView.Adapter<HomeworkListAdapter.ViewHolder> {
 
-  private Context context;
+  private Context mContext;
+  private List<HomeworkItem> mHomework;
+  private HomeworkClickedListener mListener;
 
-  public HomeworkListAdapter(Context context, int textViewResourceId, List<HomeworkItem> hwks) {
-    super(context, textViewResourceId, hwks);
-    this.context = context;
+
+  public interface HomeworkClickedListener {
+    void homeworkClick(int postition);
+    void homeworkLongClick(int postition);
+    void homeworkStatusChanged(int position, boolean status);
+  }
+
+  public HomeworkListAdapter(Context context, List<HomeworkItem> hwks, HomeworkClickedListener callbacks) {
+    super();
+    this.mHomework = hwks;
+    this.mContext = context;
+    this.mListener = callbacks;
+
+    setHasStableIds(true);
   }
 
   @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
-    final HomeworkItem hwk = getItem(position);
+  public long getItemId(int position){
+    return this.mHomework.get(position).id;
+  }
 
-    View v = convertView; // inflate the list
-    final ViewHolder holder;
-
-    if (v == null) {
-      LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      v = vi.inflate(R.layout.list, null);
-      holder = new ViewHolder();
-      holder.title = (TextView) v.findViewById(R.id.listTitle);
-      holder.subject = (TextView) v.findViewById(R.id.listSubject);
-      holder.dueDate = (TextView) v.findViewById(R.id.listDueDate);
-      holder.listLate = (TextView) v.findViewById(R.id.listLate);
-      holder.complete = (CheckBox) v.findViewById(R.id.homeworkComplete);
-      v.setTag(holder);
+  private void setStatusText(TextView view, HomeworkItem hwk) {
+    if (hwk.isComplete()) {
+      view.setTextColor(Color.rgb(104, 220, 50));
+      view.setText("Complete");
     } else {
-      holder = (ViewHolder) v.getTag();
+      if (hwk.isToday()) {
+        view.setTextColor(Color.rgb(255, 165, 0));
+        view.setText("Due Today!");
+      } else if (hwk.isLate()) {
+        view.setTextColor(Color.RED);
+        view.setText("Late");
+      } else {
+        view.setTextColor(Color.rgb(104, 220, 50));
+        view.setText("Ongoing");
+      }
     }
+  }
 
+  @Override
+  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext())
+        .inflate(R.layout.homework_list_view, parent, false);
+    return new ViewHolder(view);
+  }
+
+  @Override
+  public void onBindViewHolder(final ViewHolder holder, int position) {
+    final HomeworkItem hwk = mHomework.get(position);
     int daysUntil = hwk.daysUntilDue();
 
     holder.title.setText(hwk.title);
@@ -60,49 +83,59 @@ public class HomeworkListAdapter extends ArrayAdapter<HomeworkItem> { // adapter
         + (hwk.month + 1) + "/"
         + hwk.year + " " + days;
 
-
-    holder.complete.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-      @Override
-      public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        hwk.complete = b;
-        DatabaseAccessor db = DatabaseAccessor.getDBAccessor(context);
-        db.updateHomeworkStatus(hwk);
-        setStatusText(holder, hwk);
-      }
-    });
     holder.complete.setChecked(hwk.complete);
     if (holder.dueDate != null) holder.dueDate.setText(date);
 
-    setStatusText(holder, hwk);
+    setStatusText(holder.listLate, hwk);
 
-    holder.color = (ImageView) v.findViewById(R.id.color_picker);
     holder.color.setBackgroundColor(hwk.color);
-    return v;
-
   }
 
-  public void setStatusText(ViewHolder holder, HomeworkItem hwk) {
-    if (hwk.isComplete()) {
-      holder.listLate.setTextColor(Color.rgb(104, 220, 50));
-      holder.listLate.setText("Complete");
-    } else {
-      if (hwk.isToday()) {
-        holder.listLate.setTextColor(Color.rgb(255, 165, 0));
-        holder.listLate.setText("Due Today!");
-      } else if (hwk.isLate()) {
-        holder.listLate.setTextColor(Color.RED);
-        holder.listLate.setText("Late");
-      } else {
-        holder.listLate.setTextColor(Color.rgb(104, 220, 50));
-        holder.listLate.setText("Ongoing");
-      }
+  @Override
+  public int getItemCount() {
+    return this.mHomework.size();
+  }
+
+  class ViewHolder extends RecyclerView.ViewHolder {
+    private TextView title, subject, listLate, dueDate;
+    private CheckBox complete;
+    private ImageView color;
+
+    public ViewHolder(View itemView) {
+      super(itemView);
+
+      this.title = (TextView) itemView.findViewById(R.id.listTitle);
+      this.subject = (TextView) itemView.findViewById(R.id.listSubject);
+      this.dueDate = (TextView) itemView.findViewById(R.id.listDueDate);
+      this.listLate = (TextView) itemView.findViewById(R.id.listLate);
+      this.complete = (CheckBox) itemView.findViewById(R.id.homeworkComplete);
+      this.color = (ImageView) itemView.findViewById(R.id.color_display);
+
+      itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          mListener.homeworkClick(ViewHolder.this.getAdapterPosition());
+          notifyDataSetChanged();
+        }
+      });
+
+      itemView.setOnLongClickListener(new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View view) {
+          mListener.homeworkLongClick(ViewHolder.this.getAdapterPosition());
+          notifyDataSetChanged();
+          return false;
+        }
+      });
+
+      this.complete.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View compoundButton) {
+          mListener.homeworkStatusChanged(getAdapterPosition(), ((CompoundButton) compoundButton).isChecked());
+          notifyDataSetChanged();
+        }
+      });
     }
-  }
-
-  protected class ViewHolder {
-    protected TextView title, subject, listLate, dueDate;
-    protected CheckBox complete;
-    protected ImageView color;
   }
 
 }

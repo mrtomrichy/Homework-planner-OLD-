@@ -6,9 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import com.tom.hwk.utils.HomeworkAlarm;
+import com.tom.hwk.models.HomeworkAlarm;
 
 import java.util.ArrayList;
 
@@ -22,17 +21,17 @@ public class AlarmDatabase {
   private SQLiteDatabase mDatabase = null;
   private AlarmDB mHelper;
 
-  public static int DATABASE_VERSION = 1;
-  public static final String DATABASE_NAME = "alarmDB";
-  public static final String DATABASE_ALARM_TABLE = "alarms";
+  static int DATABASE_VERSION = 1;
+  static final String DATABASE_NAME = "alarmDB";
+  static final String DATABASE_ALARM_TABLE = "alarms";
 
-  public static final String KEY_ALARM_ID = "_id";
-  public static final String KEY_ALARM_HOMEWORK_ID = "homework_id";
-  public static final String KEY_ALARM_DAY = "_day";
-  public static final String KEY_ALARM_MONTH = "_month";
-  public static final String KEY_ALARM_YEAR = "_year";
-  public static final String KEY_ALARM_HOUR = "_hour";
-  public static final String KEY_ALARM_MINUTE = "_minute";
+  static final String KEY_ALARM_ID = "_id";
+  static final String KEY_ALARM_HOMEWORK_ID = "homework_id";
+  static final String KEY_ALARM_DAY = "_day";
+  static final String KEY_ALARM_MONTH = "_month";
+  static final String KEY_ALARM_YEAR = "_year";
+  static final String KEY_ALARM_HOUR = "_hour";
+  static final String KEY_ALARM_MINUTE = "_minute";
 
   public AlarmDatabase(Context mContext){
     this.mContext = mContext;
@@ -46,7 +45,7 @@ public class AlarmDatabase {
   }
 
   // method to close the database
-  public void close() {
+  void close() {
     mHelper.close();
   }
 

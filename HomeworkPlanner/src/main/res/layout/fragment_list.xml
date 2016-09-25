@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent" >
 
-    <de.timroes.android.listview.EnhancedListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        style="@style/ListStyle"/>
+        tools:listItem="@layout/list" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,12 +16,10 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/list_footer_info"
         android:id="@+id/homework_list_footer"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:textSize="12sp"
         android:textStyle="bold"
         android:layout_marginTop="15dp"
         android:visibility="gone" />
 
 
-</RelativeLayout>
+</FrameLayout>

@@ -1,9 +1,8 @@
 package com.tom.hwk.ui.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,19 +13,17 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.tom.hwk.R;
-import com.tom.hwk.utils.HomeworkAlarm;
-import com.tom.hwk.utils.HomeworkItem;
+import com.tom.hwk.models.HomeworkAlarm;
+import com.tom.hwk.models.HomeworkItem;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ViewHomeworkFragment extends Fragment {
 
-  public interface ViewHomeworkAttachedListener {
-    public abstract void onViewFragmentResumed();
-  }
+  public static final String ARG_HOMEWORK_KEY = "hwk";
 
-  private ArrayList<HomeworkAlarm> alarms;
+  private List<HomeworkAlarm> alarms;
 
   private final String[] monthNames = new String[]
       {"Jan", "Feb", "Mar", "Apr", "May",
@@ -46,16 +43,25 @@ public class ViewHomeworkFragment extends Fragment {
   private ScrollView details;
   private RelativeLayout none;
 
-  private ViewHomeworkAttachedListener listener;
+
+  public ViewHomeworkFragment(){
+
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    if (getArguments() != null && getArguments().containsKey(ARG_HOMEWORK_KEY)) {
+      // Load the dummy content specified by the fragment
+      // arguments. In a real-world scenario, use a Loader
+      // to load content from a content provider.
+      hwk = getArguments().getParcelable(ARG_HOMEWORK_KEY);
+    }
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle savedInstanceState) {
-    View v = inflater.inflate(R.layout.viewhomework, group, false);
+    View v = inflater.inflate(R.layout.fragment_view, group, false);
 
     details = (ScrollView) v.findViewById(R.id.view_homework_details);
     none = (RelativeLayout) v.findViewById(R.id.view_homework_hidden);
@@ -70,19 +76,15 @@ public class ViewHomeworkFragment extends Fragment {
   }
 
   @Override
-  public void onAttach(Activity a){
-    super.onAttach(a);
-    if (getActivity() instanceof ViewHomeworkAttachedListener)
-      listener = (ViewHomeworkAttachedListener) getActivity();
-    else
-      throw new RuntimeException("Activity must implement ViewHomeworkAttachedListener");
-  }
-
-  @Override
   public void onResume() {
     super.onResume();
 
-    listener.onViewFragmentResumed();
+    updateDetails(hwk);
+  }
+
+  @Override
+  public void onDetach() {
+    super.onDetach();
   }
 
   /* Returns the homework that is currently being viewed */
@@ -141,6 +143,4 @@ public class ViewHomeworkFragment extends Fragment {
     details.setVisibility(View.GONE);
     none.setVisibility(View.VISIBLE);
   }
-
-
 }

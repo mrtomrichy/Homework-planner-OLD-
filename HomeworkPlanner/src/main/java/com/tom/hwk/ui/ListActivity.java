@@ -1,82 +1,72 @@
 package com.tom.hwk.ui;
 
 import android.app.AlertDialog;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.tom.hwk.R;
-import com.tom.hwk.ui.fragments.HomeworkListFragment;
+import com.tom.hwk.models.HomeworkItem;
+import com.tom.hwk.ui.fragments.ListHomeworkFragment;
 import com.tom.hwk.ui.fragments.ViewHomeworkFragment;
-import com.tom.hwk.utils.DatabaseAccessor;
-import com.tom.hwk.utils.HomeworkItem;
-import com.tom.hwk.utils.Utils;
 
-public class ListActivity extends ActionBarActivity implements ViewHomeworkFragment.ViewHomeworkAttachedListener, HomeworkListFragment.ListAttachedListener {
+public class ListActivity extends AppCompatActivity implements ListHomeworkFragment.ListAttachedListener {
 
   private CharSequence items[];
-  private HomeworkListFragment listFragment = null;
-  private ViewHomeworkFragment viewFragment = null;
 
-  private DatabaseAccessor dbAccessor;
+  private ListHomeworkFragment listFragment;
+  private FloatingActionButton addNewButton;
+
+  private boolean mTwoPane = false;
 
   /* Override the onCreate method to set up all initial variables
      and show the fragments */
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.main);
-
-    getSupportActionBar().setElevation(0);
+    setContentView(R.layout.activity_list);
 
     // How the user wishes to sort the homework
     SharedPreferences prefs = getSharedPreferences("sortPrefs", MODE_PRIVATE);
     HomeworkItem.SORT_NUM = prefs.getInt("order", 0);
 
-    dbAccessor = DatabaseAccessor.getDBAccessor(this);
-
     // Sort methods
     items = getResources().getStringArray(R.array.sort_by_options);
 
-    FragmentManager fragmentManager = getFragmentManager();
+    listFragment = ((ListHomeworkFragment) getSupportFragmentManager()
+        .findFragmentById(R.id.item_list));
 
-    listFragment = listFragment == null ? new HomeworkListFragment() : listFragment;
-    viewFragment = viewFragment == null ? new ViewHomeworkFragment() : viewFragment;
+    mTwoPane = findViewById(R.id.view_homework_content) != null;
 
-    fragmentManager.beginTransaction().replace(R.id.homework_list_content, listFragment).commit();
-
-    if (Utils.isDualPane(this)) {
-      fragmentManager.beginTransaction().replace(R.id.view_homework_content, viewFragment).commit();
+    if(mTwoPane) {
+      Bundle b = getIntent().getExtras();
+      if (b != null && b.containsKey(HomeworkItem.ID_TAG)) {
+        listFragment.setSelectedHomework(b.getInt(HomeworkItem.ID_TAG));
+        getIntent().removeExtra(HomeworkItem.ID_TAG);
+      }
     }
 
-    fragmentManager.executePendingTransactions();
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    if (Utils.isDualPane(this) && viewFragment.getHomework() != null) {
-      for (HomeworkItem item : dbAccessor.getAllHomework())
-        if (item.id == viewFragment.getHomework().id)
-          return;
-      viewFragment.updateDetails(null);
-    }
+    addNewButton = (FloatingActionButton) findViewById(R.id.add_new_homework_fab);
+    addNewButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        createNewHomework();
+      }
+    });
   }
 
   /* Create the options menu */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
-    if (Utils.isDualPane(this)) inflater.inflate(R.menu.joint_menu, menu);
-    else inflater.inflate(R.menu.optionsmenu, menu);
-
+    inflater.inflate(R.menu.optionsmenu, menu);
     return true;
   }
 
@@ -94,7 +84,7 @@ public class ListActivity extends ActionBarActivity implements ViewHomeworkFragm
         SharedPreferences.Editor edit = prefs.edit();
         edit.putInt("order", selected);
         edit.apply();
-        listFragment.reorderHomeworks();
+        listFragment.reorderHomework();
         i.cancel();
       }
     });
@@ -117,20 +107,8 @@ public class ListActivity extends ActionBarActivity implements ViewHomeworkFragm
         startActivity(intent);
         finish();
         return true;
-      case R.id.addNew:
-        intent = new Intent(this, EditActivity.class);
-        startActivity(intent);
-        finish();
-        return true;
       case R.id.settingsScreen:
         intent = new Intent(this, PreferencesActivity.class);
-        startActivity(intent);
-        finish();
-        return true;
-      case R.id.editButton:
-        if (viewFragment.getHomework() == null) return true;
-        intent = new Intent(this, EditActivity.class);
-        intent.putExtra(HomeworkItem.ID_TAG, viewFragment.getHomework().id);
         startActivity(intent);
         finish();
         return true;
@@ -140,10 +118,16 @@ public class ListActivity extends ActionBarActivity implements ViewHomeworkFragm
   }
 
   @Override
-  public void onHomeworkSelected(HomeworkItem hwk, boolean userInteracted) {
-    if (Utils.isDualPane(this)) {
-      viewFragment.updateDetails(hwk);
-    } else if (userInteracted) {
+  public void onHomeworkSelected(HomeworkItem hwk) {
+    if (mTwoPane) {
+      Bundle arguments = new Bundle();
+      arguments.putParcelable(ViewHomeworkFragment.ARG_HOMEWORK_KEY, hwk);
+      ViewHomeworkFragment fragment = new ViewHomeworkFragment();
+      fragment.setArguments(arguments);
+      getSupportFragmentManager().beginTransaction()
+          .replace(R.id.view_homework_content, fragment)
+          .commit();
+    } else {
       Intent i = new Intent(this, ViewActivity.class);
       Bundle b = new Bundle();
       b.putInt(HomeworkItem.ID_TAG, hwk.id); // add the homework
@@ -153,15 +137,16 @@ public class ListActivity extends ActionBarActivity implements ViewHomeworkFragm
     }
   }
 
-  @Override
-  public void onViewFragmentResumed() {
-    if (Utils.isDualPane(this))
-      if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(HomeworkItem.ID_TAG)) {
-        Log.d("This is sparta","Recycled");
-        listFragment.setSelectedHomework(dbAccessor.getHomeworkWithId(getIntent().getExtras().getInt(HomeworkItem.ID_TAG)));
-        getIntent().removeExtra(HomeworkItem.ID_TAG);
-      } else {
-        viewFragment.updateDetails(listFragment.getSelectedHomework());
-      }
+  public void createNewHomework(){
+    Intent intent = new Intent(this, EditActivity.class);
+    startActivity(intent);
+    finish();
+  }
+
+  public void onEditPressed(HomeworkItem homeworkItem) {
+    Intent i = new Intent(this, EditActivity.class);
+    i.putExtra(HomeworkItem.ID_TAG, homeworkItem.id);
+    startActivity(i);
+    finish();
   }
 }

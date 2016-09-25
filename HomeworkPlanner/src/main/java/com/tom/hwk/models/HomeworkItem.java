@@ -1,12 +1,13 @@
-package com.tom.hwk.utils;
+package com.tom.hwk.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public class HomeworkItem implements Comparable<HomeworkItem> {
+public class HomeworkItem implements Comparable<HomeworkItem>, Parcelable {
   public static String ID_TAG = "hwk_id";
 
   public int id;
@@ -16,7 +17,7 @@ public class HomeworkItem implements Comparable<HomeworkItem> {
   public String notes;
   public int color;
   public boolean complete;
-  public ArrayList<HomeworkAlarm> alarms;
+  public List<HomeworkAlarm> alarms;
 
   public static int SORT_NUM = 0;
   private static final int SORT_DATE_ORDER = 0;
@@ -68,7 +69,7 @@ public class HomeworkItem implements Comparable<HomeworkItem> {
 
   public HomeworkItem(int id, String title, String subject, int day,
                       int month, int year, String notes, int color, boolean complete,
-                      ArrayList<HomeworkAlarm> alarms) {
+                      List<HomeworkAlarm> alarms) {
     this();
     this.id = id;
     this.title = title;
@@ -135,5 +136,30 @@ public class HomeworkItem implements Comparable<HomeworkItem> {
 
     }
     return 0;
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  public void writeToParcel(Parcel out, int flags) {
+    int[] ints = new int[6];
+    String[] strings = new String[3];
+
+    ints[0] = id;
+    ints[1] = day;
+    ints[2] = month;
+    ints[3] = year;
+    ints[4] = color;
+    ints[5] = 1;
+
+    strings[0] = title;
+    strings[1] = subject;
+    strings[2] = notes;
+
+    out.writeIntArray(ints);
+    out.writeStringArray(strings);
+    out.writeTypedList(alarms);
   }
 }

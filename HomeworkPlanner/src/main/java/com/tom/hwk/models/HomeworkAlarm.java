@@ -1,7 +1,9 @@
-package com.tom.hwk.utils;
+package com.tom.hwk.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.tom.hwk.utils.AlarmUtils;
 
 public class HomeworkAlarm implements Parcelable {
   public static final String ID_TAG = "alarm_id";

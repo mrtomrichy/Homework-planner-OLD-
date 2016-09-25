@@ -5,17 +5,20 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
-import java.util.ArrayList;
+import com.tom.hwk.models.HomeworkAlarm;
+import com.tom.hwk.models.HomeworkItem;
+
 import java.util.Calendar;
+import java.util.List;
 
 public class AlarmUtils {
 
-  public void createAlarmsFromList(ArrayList<HomeworkAlarm> alarms, Context con) {
+  public static void createAlarmsFromList(List<HomeworkAlarm> alarms, Context con) {
     for (HomeworkAlarm thisAlarm : alarms)
       createAlarm(thisAlarm, con);
   }
 
-  public void createAlarm(HomeworkAlarm thisAlarm, Context con) {
+  public static void createAlarm(HomeworkAlarm thisAlarm, Context con) {
     Calendar alarmDate = Calendar.getInstance();
     alarmDate.set(thisAlarm.year, thisAlarm.month, thisAlarm.day,
         thisAlarm.hour, thisAlarm.minute, 0);
@@ -29,13 +32,13 @@ public class AlarmUtils {
     mAlarm.set(AlarmManager.RTC_WAKEUP, alarmDate.getTimeInMillis(), pi);
   }
 
-  public void deleteAllAlarms(ArrayList<HomeworkAlarm> alarms, Context con) {
+  public static void deleteAlarms(List<HomeworkAlarm> alarms, Context con) {
     for (HomeworkAlarm alarm : alarms) {
       deleteAlarm(alarm, con);
     }
   }
 
-  public void deleteAlarm(HomeworkAlarm alarm, Context con) {
+  public static void deleteAlarm(HomeworkAlarm alarm, Context con) {
     Intent intent = new Intent(con, AlarmReceiver.class);
     AlarmManager alarmManager = (AlarmManager) con
         .getSystemService(Context.ALARM_SERVICE);

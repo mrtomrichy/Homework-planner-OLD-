@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.tom.hwk.utils.DatabaseAccessor;
-import com.tom.hwk.utils.HomeworkItem;
+import com.tom.hwk.models.HomeworkItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +89,7 @@ public class SubjectDatabase {
       db.execSQL("CREATE TABLE " + DATABASE_SUBJECT_TABLE + "("
           + KEY_ROW_SUBJECT + " TEXT UNIQUE ON CONFLICT IGNORE)");
       DatabaseAccessor dbAccessor = DatabaseAccessor.getDBAccessor(mContext);
-      List<HomeworkItem> hwks = dbAccessor.getAllHomework();
+      List<HomeworkItem> hwks = dbAccessor.getHomework();
 
       for (HomeworkItem h : hwks) {
         db.execSQL("INSERT INTO " + DATABASE_SUBJECT_TABLE + " VALUES('" + h.subject + "')");
