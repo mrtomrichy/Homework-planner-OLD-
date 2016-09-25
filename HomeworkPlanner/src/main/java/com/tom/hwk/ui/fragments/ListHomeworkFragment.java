@@ -149,7 +149,13 @@ public class ListHomeworkFragment extends Fragment {
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setMessage("Are you sure you want to delete this homework?")
         .setPositiveButton("Yes", dialogClickListener)
-        .setNegativeButton("No", dialogClickListener).show();
+        .setNegativeButton("No", dialogClickListener);
+
+
+    AlertDialog dialog = builder.create();
+    dialog.show();
+
+    dialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.red));
   }
 
   private void deleteHomework(HomeworkItem homework) {

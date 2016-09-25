@@ -6,7 +6,8 @@
     <color name="cyan_dark">#247FA0</color>
     <color name="white">#FFFFFF</color>
     <color name="div">#999999</color>
-    <string-array name="default_color_choice_values" translatable="false">
+    <color name="red">#ff4444</color>
+    <string-array name="color_swatch_values" translatable="false">
         <item>#33b5e5</item>
         <item>#aa66cc</item>
         <item>#99cc00</item>

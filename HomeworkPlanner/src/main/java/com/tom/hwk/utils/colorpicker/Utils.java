@@ -32,7 +32,7 @@ public class Utils {
         public static int[] colorChoice(Context context) {
 
             int[] mColorChoices = null;
-            String[] color_array = context.getResources().getStringArray(R.array.default_color_choice_values);
+            String[] color_array = context.getResources().getStringArray(R.array.color_swatch_values);
 
             if (color_array != null && color_array.length > 0) {
                 mColorChoices = new int[color_array.length];
