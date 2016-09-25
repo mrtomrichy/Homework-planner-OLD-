@@ -87,6 +87,18 @@ public class HomeworkItem implements Comparable<HomeworkItem>, Parcelable {
     due.set(Calendar.MILLISECOND, 0);
   }
 
+  public static final Creator<HomeworkItem> CREATOR = new Creator<HomeworkItem>() {
+    @Override
+    public HomeworkItem createFromParcel(Parcel in) {
+      return new HomeworkItem(in);
+    }
+
+    @Override
+    public HomeworkItem[] newArray(int size) {
+      return new HomeworkItem[size];
+    }
+  };
+
   public int daysUntilDue() {
     return (int) ((due.getTimeInMillis() - today.getTimeInMillis()) / (1000 * 60 * 60 * 24));
   }

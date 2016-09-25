@@ -22,7 +22,6 @@ public class ListActivity extends AppCompatActivity implements ListHomeworkFragm
   private CharSequence items[];
 
   private ListHomeworkFragment listFragment;
-  private FloatingActionButton addNewButton;
 
   private boolean mTwoPane = false;
 
@@ -53,7 +52,7 @@ public class ListActivity extends AppCompatActivity implements ListHomeworkFragm
       }
     }
 
-    addNewButton = (FloatingActionButton) findViewById(R.id.add_new_homework_fab);
+    FloatingActionButton addNewButton = (FloatingActionButton) findViewById(R.id.add_new_homework_fab);
     addNewButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {

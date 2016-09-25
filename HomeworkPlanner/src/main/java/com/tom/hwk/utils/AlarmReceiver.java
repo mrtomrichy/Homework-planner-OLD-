@@ -27,7 +27,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 
       db.deleteAlarm(id, h);
 
-
       NotificationCompat.Builder mBuilder =
               new NotificationCompat.Builder(context)
                       .setSmallIcon(R.drawable.notification_icon)
