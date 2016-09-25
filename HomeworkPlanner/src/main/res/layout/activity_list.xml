@@ -26,7 +26,8 @@
         app:layout_anchor="@id/item_list"
         app:layout_anchorGravity="bottom|right|end"
         android:backgroundTint="@color/cyan"
-        android:src="@drawable/ic_action_new"
-        android:id="@+id/add_new_homework_fab"/>
+        android:src="@drawable/ic_action_add"
+        android:id="@+id/add_new_homework_fab"
+        app:theme="@style/Base.Widget.AppCompat.ImageButton"/>
 
 </android.support.design.widget.CoordinatorLayout>

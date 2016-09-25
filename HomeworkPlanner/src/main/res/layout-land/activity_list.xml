@@ -44,7 +44,7 @@
             app:layout_anchor="@id/view_homework_content"
             app:layout_anchorGravity="bottom|right|end"
             android:backgroundTint="@color/cyan"
-            android:src="@drawable/ic_action_new"
+            android:src="@drawable/ic_action_add"
             android:id="@+id/add_new_homework_fab"/>
 
     </android.support.design.widget.CoordinatorLayout>

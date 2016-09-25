@@ -89,34 +89,6 @@ public class ListHomeworkFragment extends Fragment {
     return v;
   }
 
-  private void showDeleteDialog(final HomeworkItem homework) {
-    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-      public void onClick(DialogInterface dialog, int which) {
-        switch (which) {
-          case DialogInterface.BUTTON_POSITIVE:
-            //Yes button clicked
-            deleteHomework(homework);
-            dialog.cancel();
-            break;
-
-          case DialogInterface.BUTTON_NEGATIVE:
-            //No button clicked
-            dialog.cancel();
-            break;
-        }
-      }
-    };
-
-    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-    builder.setMessage("Are you sure you want to delete this homework?")
-        .setPositiveButton("Yes", dialogClickListener)
-        .setNegativeButton("No", dialogClickListener).show();
-  }
-
-  private void deleteHomework(HomeworkItem homework){
-    //mDatabaseAccessor.deleteHomework(homework);
-  }
-
   @Override
   public void onDestroyView() {
     if (mRecyclerView != null) {
@@ -154,6 +126,34 @@ public class ListHomeworkFragment extends Fragment {
   public void onDetach() {
     super.onDetach();
     mListener = sDummyListener;
+  }
+
+  private void showDeleteDialog(final HomeworkItem homework) {
+    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+      public void onClick(DialogInterface dialog, int which) {
+        switch (which) {
+          case DialogInterface.BUTTON_POSITIVE:
+            //Yes button clicked
+            deleteHomework(homework);
+            dialog.cancel();
+            break;
+
+          case DialogInterface.BUTTON_NEGATIVE:
+            //No button clicked
+            dialog.cancel();
+            break;
+        }
+      }
+    };
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+    builder.setMessage("Are you sure you want to delete this homework?")
+        .setPositiveButton("Yes", dialogClickListener)
+        .setNegativeButton("No", dialogClickListener).show();
+  }
+
+  private void deleteHomework(HomeworkItem homework) {
+    mDatabaseAccessor.deleteHomework(homework);
   }
 
   private void selectHomework(HomeworkItem hwk) {

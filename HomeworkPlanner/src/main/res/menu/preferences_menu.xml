@@ -5,7 +5,7 @@
     <item
         android:id="@+id/preferences_add_subject"
         android:title="Add subject"
-        android:icon="@drawable/ic_action_new"
+        android:icon="@drawable/ic_action_add"
         android:enabled="true"
         app:showAsAction="always" />
 </menu>

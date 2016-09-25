@@ -19,7 +19,7 @@ import com.tom.hwk.ui.fragments.ViewHomeworkFragment;
 
 public class ListActivity extends AppCompatActivity implements ListHomeworkFragment.ListAttachedListener {
 
-  private CharSequence items[];
+  private CharSequence reorderOptions[];
 
   private ListHomeworkFragment listFragment;
 
@@ -37,7 +37,7 @@ public class ListActivity extends AppCompatActivity implements ListHomeworkFragm
     HomeworkItem.SORT_NUM = prefs.getInt("order", 0);
 
     // Sort methods
-    items = getResources().getStringArray(R.array.sort_by_options);
+    reorderOptions = getResources().getStringArray(R.array.sort_by_options);
 
     listFragment = ((ListHomeworkFragment) getSupportFragmentManager()
         .findFragmentById(R.id.item_list));
@@ -76,7 +76,7 @@ public class ListActivity extends AppCompatActivity implements ListHomeworkFragm
     builder.setTitle("Reorder Homework");
     builder.setCancelable(true);
 
-    builder.setSingleChoiceItems(items, HomeworkItem.SORT_NUM, new DialogInterface.OnClickListener() {
+    builder.setSingleChoiceItems(reorderOptions, HomeworkItem.SORT_NUM, new DialogInterface.OnClickListener() {
       public void onClick(DialogInterface i, int selected) {
         HomeworkItem.SORT_NUM = selected;
         SharedPreferences prefs = getSharedPreferences("sortPrefs", MODE_PRIVATE);
